@@ -1,8 +1,18 @@
 import * as React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
-import { StyleVariable, FontFamily, FontSize, Color } from "D:/Project Mobile App/App/Invoicer 6-11/app/GlobalStyles.js";
+import { useState } from "react";
+import { StyleSheet, View, Text, Image, TextInput } from "react-native";
+import { StyleVariable, FontFamily, FontSize, Color } from './GlobalStyles';
+
 
 const LoginEmptyState = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
+
   return (
     <View style={styles.loginEmptyState}>
       <View style={styles.wrapper} />
@@ -17,22 +27,30 @@ const LoginEmptyState = () => {
           <View style={styles.wrapperFlexBox}>
             <Text style={[styles.label, styles.labelTypo]}>Email</Text>
             <View style={[styles.field, styles.fieldFlexBox]}>
-              <Text style={[styles.placeholder, styles.labelTypo]}>Email</Text>
+              <TextInput
+                style={[styles.placeholder, styles.labelTypo]}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+              />
             </View>
           </View>
           <View style={styles.wrapperFlexBox}>
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Password</Text>
               <View style={[styles.field, styles.fieldFlexBox]}>
-                <Text style={[styles.placeholder, styles.labelTypo]}>
-                  Password
-                </Text>
-                
+                <TextInput
+                  style={[styles.placeholder, styles.labelTypo]}
+                  placeholder="Password"
+                  secureTextEntry
+                  value={password}
+                  onChangeText={setPassword}
+                />
               </View>
             </View>
             <View style={[styles.button, styles.buttonFlexBox]}>
-              <Text style={[styles.button1, styles.buttonTypo]}>
-                Forgot Password?
+              <Text style={[styles.button1, styles.buttonTypo]} onPress={handleLogin}>
+                Login
               </Text>
             </View>
           </View>
