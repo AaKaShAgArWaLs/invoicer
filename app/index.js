@@ -6,6 +6,7 @@ import { StyleVariable, FontFamily, FontSize, Color } from './GlobalStyles';
 const LoginEmptyState = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -43,6 +44,9 @@ const LoginEmptyState = () => {
             Please log in to enjoy all Montrack features
           </Text>
         </View>
+        {errorMessage ? ( 
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      ) : null}
         <View style={styles.forms}>
           <View style={styles.wrapperFlexBox}>
             <Text style={[styles.label, styles.labelTypo]}>Email</Text>
@@ -270,6 +274,12 @@ const styles = StyleSheet.create({
   buttonDisabled: {
     backgroundColor: Color.monochromeBlack40,
     color: Color.monochromeWhite,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
 
