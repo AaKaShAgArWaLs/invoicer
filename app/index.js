@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
-import { StyleVariable, FontFamily, FontSize, Color } from './GlobalStyles';
+import { StyleVariable, FontFamily, FontSize, Color } from './Styles';
 
 const LoginEmptyState = () => {
   const [email, setEmail] = useState("");
