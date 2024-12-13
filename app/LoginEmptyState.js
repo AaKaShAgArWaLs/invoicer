@@ -48,11 +48,6 @@ const LoginEmptyState = () => {
                 />
               </View>
             </View>
-            <View style={[styles.button, styles.buttonFlexBox]}>
-              <Text style={[styles.button1, styles.buttonTypo]} onPress={handleLogin}>
-                Login
-              </Text>
-            </View>
           </View>
         </View>
       </View>
@@ -116,7 +111,7 @@ const styles = StyleSheet.create({
   },
   dontHaveAnTypo: {
     textAlign: "center",
-    color: Color.monochromeBlack80,
+      // color: Color.monochromeBlack80,
     fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
@@ -177,7 +172,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button1: {
-    color: Color.primaryColorsPrimary1,
+    color: "#007bff",
   },
   button: {
     justifyContent: "flex-end",
@@ -210,7 +205,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button4: {
-    color: Color.monochromeWhite,
+    color: "#486cdd",
   },
   button3: {
     backgroundColor: Color.monochromeBlack40,
