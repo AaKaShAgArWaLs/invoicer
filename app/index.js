@@ -76,6 +76,9 @@ const LoginEmptyState = () => {
         </View>
       </View>
       <View style={styles.orLoginWithParent}>
+      <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
+        <img src="assets/images/google.svg" style={{ width: 25, height: 25 }}/>
+        </View> 
         <Text style={[styles.orLoginWith, styles.dontHaveAnTypo]}>
           or Login with
         </Text>
@@ -219,7 +222,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button4: {
-    color: "#486cdd",
+    color: "#fff",
+  },
+  GoogleBut: {
+    backgroundColor: Color.monochromeWhite,
+    borderColor: Color.monochromeBlack100,
+    borderWidth: 1,
+    paddingHorizontal: StyleVariable.scaleAndSpacing24,
+    paddingVertical: StyleVariable.scaleAndSpacing8,
+    flexDirection: "row",
+    gap: StyleVariable.scaleAndSpacing8,
+    alignSelf: "stretch",
+    justifyContent: "center",
   },
   button3: {
     backgroundColor: Color.monochromeBlack40,
@@ -273,7 +287,7 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     backgroundColor: Color.monochromeBlack40,
-    color: Color.monochromeWhite,
+    color: Color.monochromeBlack,
   },
   errorText: {
     color: 'red',
