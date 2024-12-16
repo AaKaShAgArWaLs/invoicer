@@ -56,7 +56,7 @@ const SignUpEmptyState = () => {
       const data = await response.json();
 
       if (response.ok) {
-        navigation.navigate('login'); // Navigate to 'Login' screen after sign-up
+        navigation.navigate('Login'); // Navigate to 'Login' screen after sign-up
       } else {
         setErrorMessage(data.message); // Set error message if response not OK
       }
@@ -76,138 +76,16 @@ const SignUpEmptyState = () => {
         <View style={styles.wrapper} />
         <View style={[styles.wrapper1, styles.button2SpaceBlock]}>
           <View style={styles.wrapperFlexBox}>
-            <Text style={styles.signUp}>Sign Up</Text>
+            <Text style={styles.signUp}>Home</Text>
             <Text style={styles.pleaseSignUp}>
-              Please sign up to enjoy all Expen features
+              This is the home Page
             </Text>
           </View>
           {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
-          <View style={styles.forms}>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Name</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Name"
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Email</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Password</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Repeat Password</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Repeat Password"
-                secureTextEntry
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-              />
-            </View>
-
-            {/* GST Registration */}
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isGSTRegistered}
-                onValueChange={setIsGSTRegistered}
-                style={styles.checkbox}
-              />
-              <Text style={styles.checkboxLabel}>GST Registered</Text>
-            </View>
-
-            {isGSTRegistered && (
-              <>
-                <View style={styles.wrapperFlexBox}>
-                  <Text style={[styles.label, styles.labelTypo]}>GST No</Text>
-                  <TextInput
-                    style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                    placeholder="Enter GST No"
-                    value={gstNo}
-                    onChangeText={setGstNo}
-                  />
-                </View>
-              </>
-            )}
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Trader Name</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter Trader Name"
-                value={traderName}
-                onChangeText={setTraderName}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Address</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter Address"
-                value={address}
-                onChangeText={setAddress}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>PAN</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter PAN"
-                value={pan}
-                onChangeText={setPan}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Entity Type</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter Entity Type"
-                value={entityType}
-                onChangeText={setEntityType}
-              />
-            </View>
-          </View>
+        </View>
         </View>
 
-        <View style={styles.orSignUpWithParent}>
-          <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
-            <img src="./assets/images/google.svg" style={{ width: 25, height: 25 }} />
-          </View>
-          <Text style={[styles.orSignUpWith, styles.dontHaveAnTypo]}>
-            or Sign up with
-          </Text>
-          <View style={[styles.frameChild, styles.fieldFlexBox]} />
-        </View>
 
-        <View style={[styles.button2, styles.button2SpaceBlock]}>
-          <TouchableOpacity
-            onPress={handleSignUp}
-            style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-            <Text style={styles.button4}>Sign Up</Text>
-          </TouchableOpacity>
-          <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
-            <Text style={styles.dontHaveAnTypo}>Already have an account?</Text>
-            <TouchableOpacity onPress={handleLogIn} style={styles.button5}>
-              <Text style={styles.button1}>Log In</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
     </ScrollView>
   );
 };

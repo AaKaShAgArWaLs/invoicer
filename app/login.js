@@ -2,12 +2,17 @@ import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { StyleVariable, FontFamily, FontSize, Color } from './Styles';
-
+import { useNavigation } from '@react-navigation/native';
 
 const LoginEmptyState = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSignUp = () => {
+    navigation.navigate('index'); // Navigate to the Login screen
+  };
 
   const handleLogin = async () => {
     try {
@@ -22,7 +27,7 @@ const LoginEmptyState = () => {
       const data = await response.json();
       
       if (response.ok) {
-        navigation.navigate('Home', { user_id: data.user_id });
+        navigation.navigate('home', { user_id: data.user_id });
       } else {
         setErrorMessage(data.message); // Set error message if response not OK
       }
@@ -77,8 +82,8 @@ const LoginEmptyState = () => {
         </View>
       </View>
       <View style={styles.orLoginWithParent}>
-      <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
-        <img src="assets/images/google.svg" style={{ width: 25, height: 25 }}/>
+        <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
+          <img src="assets/images/google.svg" style={{ width: 25, height: 25 }}/>
         </View> 
         <Text style={[styles.orLoginWith, styles.dontHaveAnTypo]}>
           or Login with
@@ -87,14 +92,19 @@ const LoginEmptyState = () => {
       </View>
       <View style={[styles.button2, styles.button2SpaceBlock]}>
         <View style={[styles.button3, styles.buttonFlexBox , isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-          <Text style={[styles.button4]}onPress={handleLogin}>
+          <Text style={[styles.button4]} onPress={handleLogin}>
             Login
           </Text>
         </View>
         <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
           <Text style={styles.dontHaveAnTypo}>Don’t have an account?</Text>
           <View style={[styles.button5, styles.buttonFlexBox]}>
-            <Text style={[styles.button1, styles.buttonTypo]}>Sign Up</Text>
+            <Text 
+              style={[styles.button1, styles.buttonTypo]} 
+              onPress={handleSignUp} // Add navigation on press
+            >
+              Sign Up
+            </Text>
           </View>
         </View>
       </View>
