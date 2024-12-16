@@ -52,7 +52,7 @@ const LoginEmptyState = () => {
             <Text style={[styles.label, styles.labelTypo]}>Email</Text>
             <View style={[styles.field, styles.fieldFlexBox]}>
               <TextInput
-                style={[styles.placeholder, styles.labelTypo ,{borderColor: 'transparent'}]}
+                style={[styles.placeholder, styles.labelTypo ]}
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
     textAlign: "left",
+    color: Color.monochromeBlack80,
     borderRadius: StyleVariable.scaleAndSpacing8,
     justifyContent: "center",
     alignSelf: "stretch",
