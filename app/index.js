@@ -1,456 +1,243 @@
 import * as React from "react";
-import { useState } from "react";
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, CheckBox, Alert } from "react-native";
-import { useNavigation } from '@react-navigation/native'; // Import the hook
-import { StyleVariable, FontFamily, FontSize, Color } from "./Styles";
-import { ScrollView } from "react-native-gesture-handler";
+import { Text, StyleSheet, View } from "react-native";
+import {
+  FontFamily,
+  StyleVariable,
+  FontSize,
+  Gap,
+  Color,
+  Border,
+} from "./Styles";
+import { IconButton } from "react-native-paper";
 
-const SignUpEmptyState = () => {
-  const navigation = useNavigation(); // Initialize navigation
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isGSTRegistered, setIsGSTRegistered] = useState(false);
-  const [gstNo, setGstNo] = useState("");
-  const [traderName, setTraderName] = useState("");
-  const [address, setAddress] = useState("");
-  const [pan, setPan] = useState("");
-  const [entityType, setEntityType] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  // Check if all fields are filled in correctly
-  const isFormValid =
-    name.trim() !== "" &&
-    email.trim() !== "" &&
-    password.trim() !== "" &&
-    password === confirmPassword;
-
-  const handleSignUp = async () => {
-    if (!isFormValid) {
-      setErrorMessage("Please fill all fields correctly.");
-      return;
-    }
-
-    try {
-      const dataToSubmit = {
-        name,
-        email,
-        password,
-        gstRegistered: isGSTRegistered,
-        gstNo,
-        traderName,
-        address,
-        pan,
-        entityType,
-      };
-
-      const response = await fetch("http://192.168.187.188:5000/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSubmit),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        navigation.navigate('login'); // Navigate to 'Login' screen after sign-up
-      } else {
-        setErrorMessage(data.message); // Set error message if response not OK
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setErrorMessage("An error occurred. Please try again.");
-    }
-  };
-
-  const handleLogIn = () => {
-    navigation.navigate('login'); // Navigate to the Login screen
-  };
-
+const HomeFilledState = () => {
   return (
-    <ScrollView>
-      <View style={styles.signUpEmptyState}>
-        <View style={styles.wrapper} />
-        <View style={[styles.wrapper1, styles.button2SpaceBlock]}>
-          <View style={styles.wrapperFlexBox}>
-            <Text style={styles.signUp}>Sign Up</Text>
-            <Text style={styles.pleaseSignUp}>
-              Please sign up to enjoy all Expen features
-            </Text>
-          </View>
-          {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
-          <View style={styles.forms}>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Name</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Name"
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Email</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Password</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Repeat Password</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Repeat Password"
-                secureTextEntry
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-              />
-            </View>
-
-            {/* GST Registration */}
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isGSTRegistered}
-                onValueChange={setIsGSTRegistered}
-                style={styles.checkbox}
-              />
-              <Text style={styles.checkboxLabel}>GST Registered</Text>
-            </View>
-
-            {isGSTRegistered && (
-              <>
-                <View style={styles.wrapperFlexBox}>
-                  <Text style={[styles.label, styles.labelTypo]}>GST No</Text>
-                  <TextInput
-                    style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                    placeholder="Enter GST No"
-                    value={gstNo}
-                    onChangeText={setGstNo}
-                  />
-                </View>
-              </>
-            )}
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Trader Name</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter Trader Name"
-                value={traderName}
-                onChangeText={setTraderName}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Address</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter Address"
-                value={address}
-                onChangeText={setAddress}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>PAN</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter PAN"
-                value={pan}
-                onChangeText={setPan}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Entity Type</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Enter Entity Type"
-                value={entityType}
-                onChangeText={setEntityType}
-              />
-            </View>
+    <View style={styles.homeFilledState}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Montrack</Text>
+          <Text style={styles.walletTitle}>Main Wallet</Text>
+          <Text style={styles.walletAmount}>IDR 0</Text>
+          <View style={styles.headerIcons}>
+            <IconButton icon="bell" size={24} color="#FFFFFF" />
+            <IconButton icon="account-circle" size={24} color="#FFFFFF" />
           </View>
         </View>
-
-        <View style={styles.orSignUpWithParent}>
-          <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
-            <img src="./assets/images/google.svg" style={{ width: 25, height: 25 }} />
+        {/* <View style={[styles.wrapper, styles.wrapperFlexBox2, {alignItems: 'center'}]}>
+          <View style={styles.wrapper2}>
+            <View style={[styles.logo, {colors: { primary: 'green' }}]}>
+              <IconButton icon="account" size={24} color="#FFFFFF" />
+              <IconButton icon="account-circle" size={24} color="#FFFFFF" />
+            </View>
           </View>
-          <Text style={[styles.orSignUpWith, styles.dontHaveAnTypo]}>
-            or Sign up with
-          </Text>
-          <View style={[styles.frameChild, styles.fieldFlexBox]} />
+          <View style={[styles.iconsParent, styles.wrapperFlexBox1, {alignItems: 'center'}]}>
+            <IconButton icon="star" size={24} color="#FFFFFF" />
+            <IconButton icon="account-circle" size={24} color="#FFFFFF" />
+          </View>
         </View>
-
-        <View style={[styles.button2, styles.button2SpaceBlock]}>
-          <TouchableOpacity
-            onPress={handleSignUp}
-            style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-            <Text style={styles.button4}>Sign Up</Text>
-          </TouchableOpacity>
-          <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
-            <Text style={styles.dontHaveAnTypo}>Already have an account?</Text>
-            <TouchableOpacity onPress={handleLogIn} style={styles.button5}>
-              <Text style={styles.button1}>Log In</Text>
-            </TouchableOpacity>
+        <View style={[styles.wrapper3, {alignItems: 'center'}]}>
+          <View style={[styles.accordionButton, styles.wrapperFlexBox2, {alignItems: 'center'}]}>
+            <Text style={[styles.label, styles.labelTypo]}>Main Wallet</Text>
+            <IconButton icon="chevron-down" size={16} color="#FFFFFF" />
           </View>
+          <Text style={[styles.idr5000000, styles.idrTypo, {textAlign: 'center'}]}>IDR 0</Text>
+        </View> */}
+      <View style={styles.container1}>
+        <View style={styles.summaryContainer}>
+          <View style={styles.card}>
+            <Text style={styles.emoji}>🤑</Text>
+            <Text style={styles.incomeLabel}>Income</Text>
+            <Text style={styles.amount}>IDR 0</Text>
+          </View>
+          <View style={styles.card}>
+            <Text style={styles.emoji}>💸</Text>
+            <Text style={styles.expenseLabel}>Expense</Text>
+            <Text style={styles.amount}>IDR 0</Text>
+          </View>
+        </View>
+        <View style={styles.pocketsGoalsContainer}>
+          <View style={styles.card}>
+            <Text style={styles.emoji}>👜</Text>
+            <Text style={styles.pocketsLabel}>Pockets</Text>
+            <Text style={styles.amount}>0 Pockets</Text>
+          </View>
+          <View style={styles.card}>
+            <Text style={styles.emoji}>🎯</Text>
+            <Text style={styles.goalsLabel}>Goals</Text>
+            <Text style={styles.amount}>0 Goals</Text>
+          </View>
+        </View>
+        <View style={styles.recentTransactionContainer}>
+          <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
+          <Text style={styles.noTransactionText}>No recent transaction for now</Text>
         </View>
       </View>
-    </ScrollView>
+      <View style={styles.navBar}>
+        <View style={styles.navBarButton}>
+          <IconButton icon="home" size={24} />
+          <Text style={styles.navBarLabel}>Home</Text>
+        </View>
+        <View style={styles.navBarButton}>
+          <IconButton icon="chart-bar" size={24} />
+          <Text style={styles.navBarLabel}>Customer</Text>
+        </View>
+        <View style={styles.navBarButton}>
+          <IconButton icon="account" size={24} />
+          <Text style={styles.navBarLabel}>Profile</Text>
+        </View>
+      </View>
+      <View style={styles.floatingActionButton}>
+        <IconButton icon="plus" size={32}/>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    color: Color.monochromeBlack60,
+  homeFilledState: {
     flex: 1,
-    backgroundColor: Color.backgroundBackground4,
-    padding: StyleVariable.scaleAndSpacing12,
-    flexDirection: "row",
-    borderRadius: StyleVariable.scaleAndSpacing8, 
-  },
-
-  button2SpaceBlock: {
-    paddingHorizontal: StyleVariable.scaleAndSpacing16,
-    paddingVertical: 0,
-    alignSelf: "stretch",
-  },
-  labelTypo: {
-    fontFamily: FontFamily.newFontFamily,
-    lineHeight: 24,
-    letterSpacing: -0.3,
-    fontSize: FontSize.interBody1SemiBold_size,
-    textAlign: "left",
-    borderRadius: StyleVariable.scaleAndSpacing8,
-    justifyContent: "center",
-    alignSelf: "stretch",
-    alignItems: "center",
-    borderWidth: 0,
-  },
-  buttonFlexBox: {
-    borderRadius: StyleVariable.scaleAndSpacing8,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  buttonTypo: {
-    lineHeight: 24,
-    letterSpacing: -0.3,
-    fontSize: FontSize.interBody1SemiBold_size,
-    textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
-    fontWeight: "600",
-  },
-  dontHaveAnTypo: {
-    textAlign: "center",
-    fontFamily: FontFamily.newFontFamily,
-    lineHeight: 24,
-    letterSpacing: -0.3,
-    fontSize: FontSize.interBody1SemiBold_size,
-  },
-  wrapperFlexBox: {
-    gap: StyleVariable.scaleAndSpacing8,
-    alignSelf: "stretch",
+    backgroundColor: "#F5F5F5",
+    padding: 16,
   },
   wrapper: {
-    height: 75,
-    justifyContent: "center",
-    alignSelf: "stretch",
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
   },
-  signUp: {
-    fontSize: FontSize.interHeading4SemiBold_size,
-    letterSpacing: -0.5,
-    lineHeight: 32,
-    textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
-    fontWeight: "600",
-    color: Color.monochromeBlack100,
-    alignSelf: "stretch",
+  walletTitle: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    fontWeight: "bold",
   },
-  pleaseSignUp: {
-    color: Color.monochromeBlack80,
-    fontFamily: FontFamily.newFontFamily,
-    lineHeight: 24,
-    letterSpacing: -0.3,
-    fontSize: FontSize.interBody1SemiBold_size,
-    textAlign: "left",
-    alignSelf: "stretch",
+  walletAmount: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "bold",
   },
-  label: {
-    color: Color.monochromeBlack100,
-    fontFamily: FontFamily.newFontFamily,
-    alignSelf: "stretch",
-  },
-  placeholder: {
-    color: Color.monochromeBlack60,
+  container1: {
     flex: 1,
-    backgroundColor: Color.backgroundBackground4,
-    padding: StyleVariable.scaleAndSpacing12,
-    flexDirection: "row",
-  },
-  button1: {
-    color: "#007bff",
-  },
-  button: {
-    justifyContent: "flex-end",
-    flexDirection: "row",
-    alignSelf: "stretch",
-    backgroundColor: Color.monochromeWhite,
-  },
-  forms: {
-    gap: StyleVariable.scaleAndSpacing24,
-    alignSelf: "stretch",
-  },
-  wrapper1: {
-    gap: StyleVariable.scaleAndSpacing32,
-    paddingVertical: 0,
-  },
-  orSignUpWith: {
-    alignSelf: "stretch",
-  },
-  frameChild: {
-    borderStyle: "solid",
-    borderColor: Color.monochromeBlack40,
-    borderWidth: 1,
-    backgroundColor: Color.monochromeWhite,
-  },
-  orSignUpWithParent: {
-    padding: StyleVariable.scaleAndSpacing16,
-    gap: StyleVariable.scaleAndSpacing16,
-    alignSelf: "stretch",
-    alignItems: "center",
-    flex: 1,
-  },
-  button4: {
-    color: "#fff",
-  },
-  GoogleBut: {
-    backgroundColor: Color.monochromeWhite,
-    borderColor: Color.monochromeBlack100,
-    borderWidth: 1,
-    paddingHorizontal: StyleVariable.scaleAndSpacing24,
-    paddingVertical: StyleVariable.scaleAndSpacing8,
-    flexDirection: "row",
-    gap: StyleVariable.scaleAndSpacing8,
-    alignSelf: "stretch",
-    justifyContent: "center",
-  },
-  button3: {
-    backgroundColor: Color.monochromeBlack40,
-    paddingHorizontal: StyleVariable.scaleAndSpacing24,
-    paddingVertical: StyleVariable.scaleAndSpacing8,
-    flexDirection: "row",
-    gap: StyleVariable.scaleAndSpacing8,
-    alignSelf: "stretch",
-    justifyContent: "center",
-  },
-  button5: {
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: Color.monochromeWhite,
-  },
-  wrapper4: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  button2: {
-    gap: StyleVariable.scaleAndSpacing12,
-    paddingVertical: 0,
     alignItems: "center",
   },
-  homeIndicator1: {
-    position: "absolute",
-    marginLeft: -66.5,
-    bottom: 8,
-    left: "50%",
-    borderRadius: 100,
-    backgroundColor: Color.labelColorLightPrimary,
-    width: 134,
-    height: 5,
-  },
-  homeIndicator: {
-    width: 375,
-    height: 34,
-  },
-  errorText: {
-    color: "red",
-    fontSize: 16,
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  buttonEnabled: {
-    backgroundColor: Color.primaryColorsPrimary1,
-    color: Color.monochromeWhite,
-  },
-  buttonDisabled: {
-    backgroundColor: Color.monochromeBlack40,
-    color: Color.monochromeBlack,
-  },
-  signUpEmptyState: {
+  summaryContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     width: "100%",
-    height: 812,
-    alignItems: "center",
-    overflow: "hidden",
-    flex: 1,
-    backgroundColor: Color.monochromeWhite,
+    marginBottom: 16,
   },
-  button2SpaceBlock: {
-    paddingHorizontal: StyleVariable.scaleAndSpacing16,
-    paddingVertical: 0,
-    alignSelf: "stretch",
-  },
-  labelTypo: {
-    fontFamily: FontFamily.newFontFamily,
-    lineHeight: 24,
-    letterSpacing: -0.3,
-    fontSize: FontSize.interBody1SemiBold_size,
-    textAlign: "left",
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  checkbox: {
-    marginRight: 10,
-  },
-  checkboxLabel: {
-    fontSize: 16,
-    color: '#3a3f47',
-  },
-  placeholder: {
-    color: Color.monochromeBlack60,
-    flex: 1,
-    backgroundColor: Color.backgroundBackground4,
-    padding: StyleVariable.scaleAndSpacing12,
+  pocketsGoalsContainer: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 16,
   },
-  // existing styles...
-  buttonEnabled: {
-    backgroundColor: Color.primaryColorsPrimary1,
-    color: Color.monochromeWhite,
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 16,
+    flex: 1,
+    margin: 4,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  buttonDisabled: {
-    backgroundColor: Color.monochromeBlack40,
-    color: Color.monochromeBlack,
+  emoji: {
+    fontSize: 22,
+    marginBottom: 8,
+    left : -10,
   },
-  errorText: {
-    color: "red",
+  incomeLabel: {
+    fontWeight: "bold",
+    marginTop: 8,
+  },
+  expenseLabel: {
+    fontWeight: "bold",
+    marginTop: 8,
+  },
+  pocketsLabel: {
+    fontWeight: "bold",
+    marginTop: 8,
+  },
+  goalsLabel: {
+    fontWeight: "bold",
+    marginTop: 8,
+  },
+  amount: {
     fontSize: 16,
-    marginBottom: 15,
+    color: "#333",
+  },
+  recentTransactionContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+  recentTransactionTitle: {
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  noTransactionText: {
+    color: "#888",
+  },
+  navBar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 16,
+    backgroundColor: "#FFFFFF",
+    borderTopWidth: 1,
+    borderColor: "#E0E0E0",
+  },
+  navBarButton: {
+    alignItems: "center",
+  },
+  navBarLabel: {
+    fontSize: 12,
+  },
+  floatingActionButton: {
+    position: "absolute",
+    bottom: 140,
+    right: 16,
+    backgroundColor: "#3077e3",
+    borderRadius: 52,
+    padding: 5,
+    elevation: 4,
+    opacity: 0.8,
+  },
+  header: {
+    backgroundColor: "#007AFF",
+    padding: 16,
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    opacity: 10,
+  },
+  headerTitle: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "bold",
+    flex: 1,
     textAlign: "center",
+  },
+  walletTitle: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "normal",
+    textAlign: "center",
+  },
+  walletAmount: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  headerIcons: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
-export default SignUpEmptyState;
+export default HomeFilledState;
