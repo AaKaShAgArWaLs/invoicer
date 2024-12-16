@@ -20,6 +20,7 @@ export const Color = {
   backgroundBackground4: "#f2f7ff",
   monochromeBlack60: "#aba4a4",
   monochromeBlack100: "#3c3c3c",
+  mono
 };
 /* Style Variables */
 export const StyleVariable = {
