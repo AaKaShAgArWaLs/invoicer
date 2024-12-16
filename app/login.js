@@ -42,7 +42,7 @@ const LoginEmptyState = () => {
         <View style={styles.wrapperFlexBox}>
           <Text style={styles.login}>Login</Text>
           <Text style={styles.pleaseLogIn}>
-            Please log in to enjoy all Montrack features
+            Please log in to enjoy all Expen
           </Text>
         </View>
         {errorMessage ? ( 

@@ -52,7 +52,7 @@ const SignUpEmptyState = () => {
         <View style={styles.wrapperFlexBox}>
           <Text style={styles.signUp}>Sign Up</Text>
           <Text style={styles.pleaseSignUp}>
-            Please sign up to enjoy all Montrack features
+            Please sign up to enjoy all Expen features
           </Text>
         </View>
         {errorMessage ? (
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: Color.monochromeBlack100,
-    fontFamily: FontFamily.interBody1Regular,
+    fontFamily: FontFamily.newFontFamily,
     alignSelf: "stretch",
   },
   placeholder: {
