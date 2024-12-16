@@ -20,6 +20,11 @@ export const Color = {
   backgroundBackground4: "#f2f7ff",
   monochromeBlack60: "#aba4a4",
   monochromeBlack100: "#3c3c3c",
+  primaryColorsPrimary2: "#486cdd",
+  primaryColorsPrimary3: "#486cdd",
+  primaryColorsPrimary4: "#486cdd",
+  primaryColorsPrimary5: "#486cdd",
+  primaryColorsPrimary6: "#486cdd",
 };
 /* Style Variables */
 export const StyleVariable = {
