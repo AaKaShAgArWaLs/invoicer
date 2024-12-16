@@ -11,6 +11,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="SignUp">
         <Stack.Screen name="index" component={SignUpEmptyState} />
         <Stack.Screen name="login" component={LoginEmptyState} />
+        <Stack.Screen name="home" component={SignUpEmptyState} />
       </Stack.Navigator>
     </NavigationContainer>
   );

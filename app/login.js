@@ -27,7 +27,7 @@ const LoginEmptyState = () => {
       const data = await response.json();
       
       if (response.ok) {
-        navigation.navigate('Home', { user_id: data.user_id });
+        navigation.navigate('home', { user_id: data.user_id });
       } else {
         setErrorMessage(data.message); // Set error message if response not OK
       }
