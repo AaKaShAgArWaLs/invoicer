@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
   },
   wrapperFlexBox: {
     gap: StyleVariable.scaleAndSpacing8,
+    fontFamily: FontFamily.newFontFamily,
     alignSelf: "stretch",
   },
   wrapper: {
@@ -128,6 +129,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: Color.monochromeBlack100,
+    fontFamily: FontFamily.newFontFamily,
     alignSelf: "stretch",
   },
   placeholder: {
