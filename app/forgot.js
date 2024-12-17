@@ -4,23 +4,18 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 import { StyleVariable, FontFamily, FontSize, Color } from './Styles';
 import { useNavigation } from '@react-navigation/native';
 
-const LoginEmptyState = () => {
+const ForgetEmptyState = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSignUp = () => {
-    navigation.navigate('signup'); // Navigate to the Login screen
+  const handleLogin = () => {
+    navigation.navigate('login'); // Navigate to the Login screen
   };
 
-  const handleforget = () => {
-    navigation.navigate('forgot'); // Navigate to the Login screen
-  };
-
-  const handleLogin = async () => {
+  const handleforget = async () => {
     try {
-      const response = await fetch('http://192.168.187.188:5000/api/login', {
+      const response = await fetch('http://192.168.187.188:5000/api/forgot', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +26,7 @@ const LoginEmptyState = () => {
       const data = await response.json();
       
       if (response.ok) {
-        navigation.navigate('home', { user_id: data.user_id });
+        //navigation.navigate('home', { user_id: data.user_id });
       } else {
         setErrorMessage(data.message); // Set error message if response not OK
       }
@@ -42,16 +37,16 @@ const LoginEmptyState = () => {
   };
 
   // Check if both email and password are filled in
-  const isFormValid = email.trim() !== "" && password.trim() !== "";
+  const isFormValid = email.trim() !== "";
 
   return (
     <View style={styles.loginEmptyState}>
       <View style={styles.wrapper} />
       <View style={[styles.wrapper1, styles.button2SpaceBlock]}>
         <View style={styles.wrapperFlexBox}>
-          <Text style={styles.login}>Login</Text>
+          <Text style={styles.login}>Forgot your password?</Text>
           <Text style={styles.pleaseLogIn}>
-            Please log in to enjoy all Expen
+          Please enter your email address and we will send you link to reset your password
           </Text>
         </View>
         {errorMessage ? ( 
@@ -69,50 +64,25 @@ const LoginEmptyState = () => {
               />
             </View>
           </View>
-          <View style={styles.wrapperFlexBox}>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Password</Text>
-              <View style={[styles.field, styles.fieldFlexBox]}>
-                <TextInput
-                  style={[styles.placeholder, styles.labelTypo]}
-                  placeholder="Password"
-                  secureTextEntry
-                  value={password}
-                  onChangeText={setPassword}
-                />
-              </View>
-              <View style={[styles.button, styles.buttonFlexBox]}>
-              <Text style={[styles.button1, styles.buttonTypo]} onPress={handleforget}>
-                Forgot Password?
-              </Text>
-            </View>
-            </View>
-          </View>
         </View>
       </View>
       <View style={styles.orLoginWithParent}>
-        <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
-          <img src="assets/images/google.svg" style={{ width: 25, height: 25 }}/>
-        </View> 
-        <Text style={[styles.orLoginWith, styles.dontHaveAnTypo]}>
-          or Login with
-        </Text>
+        
         <View style={[styles.frameChild, styles.fieldFlexBox]} />
       </View>
       <View style={[styles.button2, styles.button2SpaceBlock]}>
         <View style={[styles.button3, styles.buttonFlexBox , isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-          <Text style={[styles.button4]} onPress={handleLogin}>
-            Login
+          <Text style={[styles.button4]} onPress={handleforget}>
+            Send Request
           </Text>
         </View>
         <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
-          <Text style={styles.dontHaveAnTypo}>Don’t have an account?</Text>
           <View style={[styles.button5, styles.buttonFlexBox]}>
             <Text 
               style={[styles.button1, styles.buttonTypo]} 
-              onPress={handleSignUp} // Add navigation on press
+              onPress={handleLogin} // Add navigation on press
             >
-              Sign Up
+              Back to log in
             </Text>
           </View>
         </View>
@@ -318,4 +288,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginEmptyState;
+export default ForgetEmptyState;

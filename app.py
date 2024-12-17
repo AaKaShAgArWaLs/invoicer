@@ -1,8 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from SQL import login as lo
 from SQL import sign
-
+from SQL.mail import reset
 app = Flask(__name__)
 
 # Apply CORS to all routes under /api/*
@@ -19,6 +19,24 @@ def ent_det():
     a=sign.new()
     print(a)
     return a
+
+
+@app.route("/api/forgot", methods=['POST'])
+def password_reset():
+    # Extract the email from the request
+    email = request.json.get('email')  # Get email from the body of the POST request
+    
+    if not email:
+        return jsonify({"message": "Email is required"}), 400  # Return error if no email is provided
+
+    # Call the function from mail_functions.py to send the email
+    response = reset(email)
+    
+    # If the function returns an error, pass it back to the client
+    if 'error' in response:
+        return jsonify(response), 500
+
+    return jsonify(response), 200
 
 @app.route('/api/*', methods=['OPTIONS'])
 def handle_options():
