@@ -1,46 +1,28 @@
 import * as React from "react";
 import { Text, StyleSheet, View } from "react-native";
-import {
-  FontFamily,
-  StyleVariable,
-  FontSize,
-  Gap,
-  Color,
-  Border,
-} from "./Styles";
-import { IconButton } from "react-native-paper";
+import { FontFamily, StyleVariable, FontSize, Gap, Color, Border } from "./Styles";
+import { IconButton,MD2Colors  } from "react-native-paper";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomeFilledState = () => {
   return (
     <View style={styles.homeFilledState}>
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Montrack</Text>
-          <Text style={styles.walletTitle}>Main Wallet</Text>
-          <Text style={styles.walletAmount}>IDR 0</Text>
+      <View style={[styles.header, { height: 230, width: "100%" }]}>
+        <LinearGradient
+          colors={['#000066', '#00ffea']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        />
+        <View style={[styles.wrapper1,]}>
+          <Text style={styles.headerTitle}>Expen</Text>
           <View style={styles.headerIcons}>
-            <IconButton icon="bell" size={24} color="#FFFFFF" />
-            <IconButton icon="account-circle" size={24} color="#FFFFFF" />
+            <IconButton icon="bell" size={34} color="#FFFFFF" />
+            <IconButton icon="account-circle" size={44} color="#FFFFFF" />
           </View>
         </View>
-        {/* <View style={[styles.wrapper, styles.wrapperFlexBox2, {alignItems: 'center'}]}>
-          <View style={styles.wrapper2}>
-            <View style={[styles.logo, {colors: { primary: 'green' }}]}>
-              <IconButton icon="account" size={24} color="#FFFFFF" />
-              <IconButton icon="account-circle" size={24} color="#FFFFFF" />
-            </View>
-          </View>
-          <View style={[styles.iconsParent, styles.wrapperFlexBox1, {alignItems: 'center'}]}>
-            <IconButton icon="star" size={24} color="#FFFFFF" />
-            <IconButton icon="account-circle" size={24} color="#FFFFFF" />
-          </View>
-        </View>
-        <View style={[styles.wrapper3, {alignItems: 'center'}]}>
-          <View style={[styles.accordionButton, styles.wrapperFlexBox2, {alignItems: 'center'}]}>
-            <Text style={[styles.label, styles.labelTypo]}>Main Wallet</Text>
-            <IconButton icon="chevron-down" size={16} color="#FFFFFF" />
-          </View>
-          <Text style={[styles.idr5000000, styles.idrTypo, {textAlign: 'center'}]}>IDR 0</Text>
-        </View> */}
+        <Text style={styles.walletTitle}>Main Wallet</Text>
+        <Text style={styles.walletAmount}>IDR 0</Text>
+      </View>
       <View style={styles.container1}>
         <View style={styles.summaryContainer}>
           <View style={styles.card}>
@@ -68,12 +50,14 @@ const HomeFilledState = () => {
         </View>
         <View style={styles.recentTransactionContainer}>
           <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
-          <Text style={styles.noTransactionText}>No recent transaction for now</Text>
+          <Text style={styles.noTransactionText}>
+            No recent transaction for now
+          </Text>
         </View>
       </View>
       <View style={styles.navBar}>
         <View style={styles.navBarButton}>
-          <IconButton icon="home" size={24} />
+          <IconButton icon="home" size={24} color="#486cdd" />
           <Text style={styles.navBarLabel}>Home</Text>
         </View>
         <View style={styles.navBarButton}>
@@ -86,7 +70,7 @@ const HomeFilledState = () => {
         </View>
       </View>
       <View style={styles.floatingActionButton}>
-        <IconButton icon="plus" size={32}/>
+        <IconButton icon="plus" size={32} />
       </View>
     </View>
   );
@@ -96,12 +80,10 @@ const styles = StyleSheet.create({
   homeFilledState: {
     flex: 1,
     backgroundColor: "#F5F5F5",
-    padding: 16,
   },
-  wrapper: {
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 16,
+  wrapper1: {
+  flexDirection: "row",
+  justifyContent: "space-between",
   },
   walletTitle: {
     color: "#FFFFFF",
@@ -207,20 +189,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#007AFF",
-    padding: 16,
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    opacity: 10,
   },
   headerTitle: {
     color: "#FFFFFF",
     fontSize: 20,
     fontWeight: "bold",
-    flex: 1,
-    textAlign: "center",
+    alignItems: "center",
   },
   walletTitle: {
     color: "#FFFFFF",
