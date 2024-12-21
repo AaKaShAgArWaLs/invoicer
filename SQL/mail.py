@@ -1,34 +1,65 @@
-from flask_mail import Mail, Message
-import random
-import string
-from flask import Flask
+import smtplib
+import logging
+import mysql.connector as z
+from flask import jsonify
 
-# Create a Flask instance (we need this to initialize Flask-Mail)
-app = Flask(__name__)
+def login(email):
+    try:
+        m = z.connect(host="localhost", user="root", passwd="12345", database="app")
+        with m.cursor() as ex:
+            s = 'SELECT * FROM signin_data WHERE Emaid_ID=%s'
+            ex.execute(s, (email,))
+            d = ex.fetchall()
+            
+            if not d:  # If no records found
+                return False, None
 
-# Configuring the Mail server (Gmail in this case)
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'your_email@gmail.com'  # Your Gmail email address
-app.config['MAIL_PASSWORD'] = 'your_password'  # Your Gmail app password or regular password
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-posta = Mail(app)
+            emailfet = d[0][1]
+            if email == emailfet:
+                unique = d[0][0]
+                return True, unique
+        m.close()
+    except Exception as e:
+        logging.error(f"Database error: {e}")
+        return False, None
 
 def reset(email):
-    """Function to generate the reset link and send the email."""
     try:
-        # Generate a random hashCode for the reset link
-        hashCode = ''.join(random.choices(string.ascii_letters + string.digits, k=24))
-        reset_link = f"http://localhost:5000/api/reset/{hashCode}"
+        hashCode = login(email)
+        if hashCode[0] == True:
+            reset_link = f"http://localhost:5000/api/reset/{hashCode[1]}"
 
-        # Create and send the email
-        msg = Message('Password Reset Request', sender='your_email@gmail.com', recipients=[email])
-        msg.body = f"Hello,\nWe've received a request to reset your password. If you want to reset your password, click the link below:\n{reset_link}"
-        posta.send(msg)
-        
-        return {"message": "Password reset link has been sent to your email."}
-    
+            # Set up the SMTP session
+            s = smtplib.SMTP('smtp.gmail.com', 587)
+            s.starttls()
+            s.login("aakashrkl1609@gmail.com", "aqwsdzbvtxhcwjfr")
+
+            # Create the message headers and body
+            subject = "Password Reset Request"
+            message = f"""\
+From: aakashrkl1609@gmail.com
+To: {email}
+Subject: {subject}
+
+Hello,
+
+We've received a request to reset your password. If you want to reset your password, click the link below:
+
+{reset_link}
+"""
+
+            s.sendmail("aakashrkl1609@gmail.com", email, message)
+            s.quit()
+
+            return jsonify({'message': 'Password reset link has been sent to your email.'}), 200
+        else:
+            return jsonify({'error': 'Email not found in our records.'}), 404
+
+    except smtplib.SMTPException as e:
+        logging.error(f"Error occurred while sending email: {e}")
+        return jsonify({'error': 'Failed to send email'}), 401
     except Exception as e:
-        # If an error occurs, return a dictionary with the error message
-        return {"error": str(e)}
+        logging.error(f"Unexpected error: {e}")
+        return jsonify({'error': 'An unexpected error occurred.'}), 500
+
+
