@@ -3,76 +3,79 @@ import { Text, StyleSheet, View } from "react-native";
 import { FontFamily, StyleVariable, FontSize, Gap, Color, Border } from "./Styles";
 import { IconButton,MD2Colors  } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
+import { PaperProvider } from "react-native-paper";
 
 const HomeFilledState = () => {
   return (
-    <View style={styles.homeFilledState}>
-      <View style={[styles.header, { height: 230, width: "100%" }]}>
-        <LinearGradient
-          colors={['#000066', '#00ffea']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-        />
-        <View style={[styles.wrapper1,]}>
-          <Text style={styles.headerTitle}>Expen</Text>
-          <View style={styles.headerIcons}>
-            <IconButton icon="bell" size={34} color="#FFFFFF" />
-            <IconButton icon="account-circle" size={44} color="#FFFFFF" />
+    <PaperProvider>
+      <View style={styles.homeFilledState}>
+        <View style={[styles.header, { height: 230, width: "100%" }]}>
+          <LinearGradient
+            colors={['#000066', '#00ffea']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+          />
+          <View style={[styles.wrapper1,]}>
+            <Text style={styles.headerTitle}>Expen</Text>
+            <View style={styles.headerIcons}>
+              <IconButton icon="bell" size={34} color="#FF0000" />
+              <IconButton icon="account-circle" size={44} color="#FFFFFF" />
+            </View>
+          </View>
+          <Text style={styles.walletTitle}>Main Wallet</Text>
+          <Text style={styles.walletAmount}>IDR 0</Text>
+        </View>
+        <View style={styles.container1}>
+          <View style={styles.summaryContainer}>
+            <View style={styles.card}>
+              <Text style={styles.emoji}>🤑</Text>
+              <Text style={styles.incomeLabel}>Income</Text>
+              <Text style={styles.amount}>IDR 0</Text>
+            </View>
+            <View style={styles.card}>
+              <Text style={styles.emoji}>💸</Text>
+              <Text style={styles.expenseLabel}>Expense</Text>
+              <Text style={styles.amount}>IDR 0</Text>
+            </View>
+          </View>
+          <View style={styles.pocketsGoalsContainer}>
+            <View style={styles.card}>
+              <Text style={styles.emoji}>👜</Text>
+              <Text style={styles.pocketsLabel}>Pockets</Text>
+              <Text style={styles.amount}>0 Pockets</Text>
+            </View>
+            <View style={styles.card}>
+              <Text style={styles.emoji}>🎯</Text>
+              <Text style={styles.goalsLabel}>Goals</Text>
+              <Text style={styles.amount}>0 Goals</Text>
+            </View>
+          </View>
+          <View style={styles.recentTransactionContainer}>
+            <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
+            <Text style={styles.noTransactionText}>
+              No recent transaction for now
+            </Text>
           </View>
         </View>
-        <Text style={styles.walletTitle}>Main Wallet</Text>
-        <Text style={styles.walletAmount}>IDR 0</Text>
+        <View style={styles.navBar}>
+          <View style={styles.navBarButton}>
+            <IconButton icon="home" size={24} color="#486cdd" />
+            <Text style={styles.navBarLabel}>Home</Text>
+          </View>
+          <View style={styles.navBarButton}>
+            <IconButton icon="chart-bar" size={24} />
+            <Text style={styles.navBarLabel}>Customer</Text>
+          </View>
+          <View style={styles.navBarButton}>
+            <IconButton icon="account" size={24} />
+            <Text style={styles.navBarLabel}>Profile</Text>
+          </View>
+        </View>
+        <View style={styles.floatingActionButton}>
+          <IconButton icon="plus" size={32} />
+        </View>
       </View>
-      <View style={styles.container1}>
-        <View style={styles.summaryContainer}>
-          <View style={styles.card}>
-            <Text style={styles.emoji}>🤑</Text>
-            <Text style={styles.incomeLabel}>Income</Text>
-            <Text style={styles.amount}>IDR 0</Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.emoji}>💸</Text>
-            <Text style={styles.expenseLabel}>Expense</Text>
-            <Text style={styles.amount}>IDR 0</Text>
-          </View>
-        </View>
-        <View style={styles.pocketsGoalsContainer}>
-          <View style={styles.card}>
-            <Text style={styles.emoji}>👜</Text>
-            <Text style={styles.pocketsLabel}>Pockets</Text>
-            <Text style={styles.amount}>0 Pockets</Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.emoji}>🎯</Text>
-            <Text style={styles.goalsLabel}>Goals</Text>
-            <Text style={styles.amount}>0 Goals</Text>
-          </View>
-        </View>
-        <View style={styles.recentTransactionContainer}>
-          <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
-          <Text style={styles.noTransactionText}>
-            No recent transaction for now
-          </Text>
-        </View>
-      </View>
-      <View style={styles.navBar}>
-        <View style={styles.navBarButton}>
-          <IconButton icon="home" size={24} color="#486cdd" />
-          <Text style={styles.navBarLabel}>Home</Text>
-        </View>
-        <View style={styles.navBarButton}>
-          <IconButton icon="chart-bar" size={24} />
-          <Text style={styles.navBarLabel}>Customer</Text>
-        </View>
-        <View style={styles.navBarButton}>
-          <IconButton icon="account" size={24} />
-          <Text style={styles.navBarLabel}>Profile</Text>
-        </View>
-      </View>
-      <View style={styles.floatingActionButton}>
-        <IconButton icon="plus" size={32} />
-      </View>
-    </View>
+    </PaperProvider>
   );
 };
 
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#ffffff", 
     borderRadius: 12,
     padding: 16,
     flex: 1,
