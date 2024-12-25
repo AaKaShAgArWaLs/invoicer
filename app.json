@@ -6,6 +6,7 @@
     "entryPoint": "./App.js",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "newArchEnabled" : true,
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {

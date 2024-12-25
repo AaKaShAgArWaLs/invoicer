@@ -195,11 +195,11 @@ const SignUpEmptyState = () => {
         </View>
 
         <View style={[styles.button2, styles.button2SpaceBlock]}>
-          <TouchableOpacity
-            onPress={handleSignUp}
-            style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-            <Text style={styles.button4}>Sign Up</Text>
-          </TouchableOpacity>
+          <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
+            <Text style={[styles.button4, { color: Color.onPrimary }]} onPress={handleSignUp}>
+              Sign Up
+            </Text>
+          </View>
           <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
             <Text style={styles.dontHaveAnTypo}>Already have an account?</Text>
             <TouchableOpacity onPress={handleLogIn} style={styles.button5}>
@@ -390,8 +390,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonEnabled: {
-    backgroundColor: Color.primaryColorsPrimary1,
-    color: Color.monochromeWhite,
+    backgroundColor: Color.primary,
+    color: Color.onPrimary,
   },
   buttonDisabled: {
     backgroundColor: Color.monochromeBlack40,
@@ -438,8 +438,8 @@ const styles = StyleSheet.create({
   },
   // existing styles...
   buttonEnabled: {
-    backgroundColor: Color.primaryColorsPrimary1,
-    color: Color.monochromeWhite,
+    backgroundColor: Color.primary,
+    color: Color.onPrimary,
   },
   buttonDisabled: {
     backgroundColor: Color.monochromeBlack40,
