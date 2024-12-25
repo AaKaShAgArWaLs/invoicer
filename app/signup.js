@@ -148,7 +148,6 @@ const SignUpEmptyState = () => {
                   icon={showConfirmPassword ? "eye-off" : "eye"}
                   onPress={toggleConfirmPasswordVisibility}
                   size={24}
-                  color={Color.monochromeBlack60}
                   style={styles.eyeIcon}
                 />
               </View>
@@ -220,7 +219,7 @@ const SignUpEmptyState = () => {
           <View style={[styles.frameChild, styles.fieldFlexBox]} />
         </View>
         <View style={[styles.button2, styles.button2SpaceBlock]}>
-          <View style={[styles.buttbon3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
+          <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
             <Text style={[styles.button4, { color: Color.onPrimary }]} onPress={handleSignUp}>
               Sign Up
             </Text>
