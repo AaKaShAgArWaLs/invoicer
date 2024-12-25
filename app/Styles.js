@@ -39,7 +39,7 @@ export const Color = {
 export const Border = {
   radius: 8,
   width: 1,
-  color: Color.onSurfaceVariant, // Safely used here
+  color: Color.onSurfaceVariant,
   br_5xs: 8,
 };
 

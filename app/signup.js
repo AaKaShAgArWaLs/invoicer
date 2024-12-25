@@ -96,7 +96,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Name</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Name"
                 placeholderTextColor={styles.placeholder.color}
                 value={name}
@@ -117,7 +117,7 @@ const SignUpEmptyState = () => {
               <Text style={[styles.label, styles.labelTypo]}>Password</Text>
               <View style={styles.passwordContainer}>
                 <TextInput
-                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, paddingRight: 40 }]}
+                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline, paddingRight: 40 }]}
                   placeholder="Password"
                   placeholderTextColor={Color.monochromeBlack60}
                   secureTextEntry={!showPassword}
@@ -128,6 +128,7 @@ const SignUpEmptyState = () => {
                   icon={showPassword ? "eye-off" : "eye"}
                   onPress={togglePasswordVisibility}
                   size={24}
+                  color={Color.monochromeBlack60}
                   style={styles.eyeIcon}
                 />
               </View>
@@ -136,7 +137,7 @@ const SignUpEmptyState = () => {
               <Text style={[styles.label, styles.labelTypo]}>Repeat Password</Text>
               <View style={styles.passwordContainer}>
                 <TextInput
-                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, paddingRight: 40 }]}
+                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline, paddingRight: 40 }]}
                   placeholder="Repeat Password"
                   placeholderTextColor={Color.monochromeBlack60}
                   secureTextEntry={!showConfirmPassword}
@@ -164,7 +165,7 @@ const SignUpEmptyState = () => {
               <View style={styles.wrapperFlexBox}>
                 <Text style={[styles.label, styles.labelTypo]}>GST No</Text>
                 <TextInput
-                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
+                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                   placeholder="Enter GST No"
                   value={gstNo}
                   onChangeText={setGstNo}
@@ -174,7 +175,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Trader Name</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter Trader Name"
                 value={traderName}
                 onChangeText={setTraderName}
@@ -183,7 +184,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Address</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter Address"
                 value={address}
                 onChangeText={setAddress}
@@ -192,7 +193,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>PAN</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter PAN"
                 value={pan}
                 onChangeText={setPan}
@@ -201,7 +202,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Entity Type</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter Entity Type"
                 value={entityType}
                 onChangeText={setEntityType}
@@ -219,7 +220,7 @@ const SignUpEmptyState = () => {
           <View style={[styles.frameChild, styles.fieldFlexBox]} />
         </View>
         <View style={[styles.button2, styles.button2SpaceBlock]}>
-          <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
+          <View style={[styles.buttbon3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
             <Text style={[styles.button4, { color: Color.onPrimary }]} onPress={handleSignUp}>
               Sign Up
             </Text>
