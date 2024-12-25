@@ -108,7 +108,7 @@ const SignUpEmptyState = () => {
               <TextInput
                 style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
                 placeholder="Email"
-                placeholderTextColor={Color.monochromeBlack60}
+                placeholderTextColor={styles.placeholder.color}
                 value={email}
                 onChangeText={setEmail}
               />
@@ -119,8 +119,8 @@ const SignUpEmptyState = () => {
                 <TextInput
                   style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline, paddingRight: 40 }]}
                   placeholder="Password"
-                  placeholderTextColor={Color.monochromeBlack60}
                   secureTextEntry={!showPassword}
+                  placeholderTextColor={styles.placeholder.color}
                   value={password}
                   onChangeText={setPassword}
                 />
@@ -128,7 +128,7 @@ const SignUpEmptyState = () => {
                   icon={showPassword ? "eye-off" : "eye"}
                   onPress={togglePasswordVisibility}
                   size={24}
-                  color={Color.monochromeBlack60}
+                  color={Color.onError}
                   style={styles.eyeIcon}
                 />
               </View>
@@ -137,10 +137,9 @@ const SignUpEmptyState = () => {
               <Text style={[styles.label, styles.labelTypo]}>Repeat Password</Text>
               <View style={styles.passwordContainer}>
                 <TextInput
-                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline, paddingRight: 40 }]}
+                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.onErr, paddingRight: 40 }]}
                   placeholder="Repeat Password"
-                  placeholderTextColor={Color.monochromeBlack60}
-                  secureTextEntry={!showConfirmPassword}
+                  placeholderTextColor={styles.placeholder.color}                  secureTextEntry={!showConfirmPassword}
                   value={confirmPassword}
                   onChangeText={setConfirmPassword}
                 />
@@ -176,6 +175,7 @@ const SignUpEmptyState = () => {
               <TextInput
                 style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter Trader Name"
+                placeholderTextColor={styles.placeholder.color}
                 value={traderName}
                 onChangeText={setTraderName}
               />
@@ -185,6 +185,7 @@ const SignUpEmptyState = () => {
               <TextInput
                 style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter Address"
+                placeholderTextColor={styles.placeholder.color}
                 value={address}
                 onChangeText={setAddress}
               />
@@ -194,6 +195,7 @@ const SignUpEmptyState = () => {
               <TextInput
                 style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter PAN"
+                placeholderTextColor={styles.placeholder.color}
                 value={pan}
                 onChangeText={setPan}
               />
@@ -203,6 +205,7 @@ const SignUpEmptyState = () => {
               <TextInput
                 style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
                 placeholder="Enter Entity Type"
+                placeholderTextColor={styles.placeholder.color}
                 value={entityType}
                 onChangeText={setEntityType}
               />
@@ -238,12 +241,12 @@ const SignUpEmptyState = () => {
 
 const styles = StyleSheet.create({
   input: {
-    color: Color.monochromeBlack60,
+    color: Color.shadow,
     flex: 1,
     backgroundColor: '#f0f0f0',
     padding: StyleVariable.scaleAndSpacing12,
     flexDirection: "row",
-    borderRadius: StyleVariable.scaleAndSpacing8,
+    borderRadius: Border.radius,
     borderWidth: 1,
     borderColor: Color.outline,
   },
@@ -258,14 +261,14 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
     textAlign: "left",
-    borderRadius: StyleVariable.scaleAndSpacing8,
+    borderRadius: Border.radius,
     justifyContent: "center",
     alignSelf: "stretch",
     alignItems: "center",
     borderWidth: 0,
   },
   buttonFlexBox: {
-    borderRadius: StyleVariable.scaleAndSpacing8,
+    borderRadius: Border.radius,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -292,6 +295,7 @@ const styles = StyleSheet.create({
     height: 75,
     justifyContent: "center",
     alignSelf: "stretch",
+    borderRadius: Border.radius,
   },
   signUp: {
     fontSize: FontSize.interHeading4SemiBold_size,
@@ -300,7 +304,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontFamily: FontFamily.newFontFamily,
     fontWeight: "600",
-    color: Color.monochromeBlack100,
+    color: Color.primary,
     alignSelf: "stretch",
   },
   pleaseSignUp: {
@@ -318,9 +322,9 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   placeholder: {
-    color: Color.monochromeBlack60,
+    color: Color.onError,
     flex: 1,
-    backgroundColor: Color.backgroundBackground4,
+    backgroundColor: Color.outline,
     padding: StyleVariable.scaleAndSpacing12,
     flexDirection: "row",
   },
@@ -407,18 +411,18 @@ const styles = StyleSheet.create({
     width: 375,
     height: 34,
   },
-  errorText: {
+  outlineText: {
     color: "red",
     fontSize: 16,
     marginBottom: 15,
     textAlign: "center",
   },
   buttonEnabled: {
-    backgroundColor: Color.oNprimary,
+    backgroundColor: Color.onPrimary,
     color: Color.onPrimary,
   },
   buttonDisabled: {
-    backgroundColor: Color.error,
+    backgroundColor: Color.outline,
     color: Color.monochromeBlack,
   },
   signUpEmptyState: {
@@ -454,7 +458,7 @@ const styles = StyleSheet.create({
     color: '#3a3f47',
   },
   placeholder: {
-    color: Color.monochromeBlack60,
+    color: Color.outline,
     flex: 1,
     backgroundColor: Color.backgroundBackground4,
     padding: StyleVariable.scaleAndSpacing12,
@@ -468,7 +472,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.monochromeBlack40,
     color: Color.monochromeBlack,
   },
-  errorText: {
+  outlineText: {
     color: "red",
     fontSize: 16,
     marginBottom: 15,

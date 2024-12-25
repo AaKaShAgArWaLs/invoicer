@@ -7,8 +7,7 @@ export const Color = {
   tertiary: "rgb(0, 99, 154)",
   tertiaryContainer: "rgb(206, 229, 255)",
   onTertiaryContainer: "rgb(0, 29, 50)",
-  error: "rgb(186, 26, 26)",
-  onError: "rgb(255, 255, 255)",
+  onError: "rgb(186, 26, 26)",
   errorContainer: "rgb(255, 218, 214)",
   onErrorContainer: "rgb(65, 0, 2)",
   background: "rgb(253, 252, 255)",
@@ -22,6 +21,7 @@ export const Color = {
   inverseSurface: "rgb(47, 48, 51)",
   inverseOnSurface: "rgb(241, 240, 244)",
   inversePrimary: "rgb(165, 200, 255)",
+  yellow: "rgb(255, 202, 40)", 
   elevation: {
     level0: "transparent",
     level1: "rgb(240, 244, 251)",
@@ -57,6 +57,7 @@ export const FontSize = {
 
 /* Style Variables */
 export const StyleVariable = {
+  scaleAndSpacing4: 4,
   scaleAndSpacing12: 12,
   scaleAndSpacing16: 16,
   scaleAndSpacing8: 8,
