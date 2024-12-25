@@ -1,12 +1,13 @@
 import * as React from "react";
 import { useState } from "react";
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, CheckBox, Alert } from "react-native";
-import { useNavigation } from '@react-navigation/native'; // Import the hook
-import { StyleVariable, FontFamily, FontSize, Color } from "./Styles";
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, CheckBox, Alert, Image } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { StyleVariable, FontFamily, FontSize, Color, Border } from "./Styles";
 import { ScrollView } from "react-native-gesture-handler";
+import { IconButton } from 'react-native-paper';
 
 const SignUpEmptyState = () => {
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,8 +19,9 @@ const SignUpEmptyState = () => {
   const [pan, setPan] = useState("");
   const [entityType, setEntityType] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Check if all fields are filled in correctly
   const isFormValid =
     name.trim() !== "" &&
     email.trim() !== "" &&
@@ -56,9 +58,9 @@ const SignUpEmptyState = () => {
       const data = await response.json();
 
       if (response.ok) {
-        navigation.navigate('login'); // Navigate to 'Login' screen after sign-up
+        navigation.navigate('login');
       } else {
-        setErrorMessage(data.message); // Set error message if response not OK
+        setErrorMessage(data.message);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -67,7 +69,15 @@ const SignUpEmptyState = () => {
   };
 
   const handleLogIn = () => {
-    navigation.navigate('login'); // Navigate to the Login screen
+    navigation.navigate('login');
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -86,8 +96,9 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Name</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
                 placeholder="Name"
+                placeholderTextColor={styles.placeholder.color}
                 value={name}
                 onChangeText={setName}
               />
@@ -95,34 +106,52 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Email</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
                 placeholder="Email"
+                placeholderTextColor={Color.monochromeBlack60}
                 value={email}
                 onChangeText={setEmail}
               />
             </View>
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Password</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, paddingRight: 40 }]}
+                  placeholder="Password"
+                  placeholderTextColor={Color.monochromeBlack60}
+                  secureTextEntry={!showPassword}
+                  value={password}
+                  onChangeText={setPassword}
+                />
+                <IconButton
+                  icon={showPassword ? "eye-off" : "eye"}
+                  onPress={togglePasswordVisibility}
+                  size={24}
+                  style={styles.eyeIcon}
+                />
+              </View>
             </View>
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Repeat Password</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                placeholder="Repeat Password"
-                secureTextEntry
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-              />
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, paddingRight: 40 }]}
+                  placeholder="Repeat Password"
+                  placeholderTextColor={Color.monochromeBlack60}
+                  secureTextEntry={!showConfirmPassword}
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                />
+                <IconButton
+                  icon={showConfirmPassword ? "eye-off" : "eye"}
+                  onPress={toggleConfirmPasswordVisibility}
+                  size={24}
+                  color={Color.monochromeBlack60}
+                  style={styles.eyeIcon}
+                />
+              </View>
             </View>
-
-            {/* GST Registration */}
             <View style={styles.checkboxContainer}>
               <CheckBox
                 value={isGSTRegistered}
@@ -131,24 +160,21 @@ const SignUpEmptyState = () => {
               />
               <Text style={styles.checkboxLabel}>GST Registered</Text>
             </View>
-
             {isGSTRegistered && (
-              <>
-                <View style={styles.wrapperFlexBox}>
-                  <Text style={[styles.label, styles.labelTypo]}>GST No</Text>
-                  <TextInput
-                    style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
-                    placeholder="Enter GST No"
-                    value={gstNo}
-                    onChangeText={setGstNo}
-                  />
-                </View>
-              </>
+              <View style={styles.wrapperFlexBox}>
+                <Text style={[styles.label, styles.labelTypo]}>GST No</Text>
+                <TextInput
+                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
+                  placeholder="Enter GST No"
+                  value={gstNo}
+                  onChangeText={setGstNo}
+                />
+              </View>
             )}
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Trader Name</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
                 placeholder="Enter Trader Name"
                 value={traderName}
                 onChangeText={setTraderName}
@@ -157,7 +183,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Address</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
                 placeholder="Enter Address"
                 value={address}
                 onChangeText={setAddress}
@@ -166,7 +192,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>PAN</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
                 placeholder="Enter PAN"
                 value={pan}
                 onChangeText={setPan}
@@ -175,7 +201,7 @@ const SignUpEmptyState = () => {
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Entity Type</Text>
               <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: StyleVariable.scaleAndSpacing8 }]}
+                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
                 placeholder="Enter Entity Type"
                 value={entityType}
                 onChangeText={setEntityType}
@@ -183,17 +209,15 @@ const SignUpEmptyState = () => {
             </View>
           </View>
         </View>
-
         <View style={styles.orSignUpWithParent}>
           <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
-            <img src="./assets/images/google.svg" style={{ width: 25, height: 25 }} />
+            <Image source={require('../assets/images/google.svg')} style={{ width: 25, height: 25 }} />
           </View>
           <Text style={[styles.orSignUpWith, styles.dontHaveAnTypo]}>
             or Sign up with
           </Text>
           <View style={[styles.frameChild, styles.fieldFlexBox]} />
         </View>
-
         <View style={[styles.button2, styles.button2SpaceBlock]}>
           <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
             <Text style={[styles.button4, { color: Color.onPrimary }]} onPress={handleSignUp}>
@@ -216,12 +240,13 @@ const styles = StyleSheet.create({
   input: {
     color: Color.monochromeBlack60,
     flex: 1,
-    backgroundColor: Color.backgroundBackground4,
+    backgroundColor: '#f0f0f0',
     padding: StyleVariable.scaleAndSpacing12,
     flexDirection: "row",
-    borderRadius: StyleVariable.scaleAndSpacing8, 
+    borderRadius: StyleVariable.scaleAndSpacing8,
+    borderWidth: 1,
+    borderColor: Color.outline,
   },
-
   button2SpaceBlock: {
     paddingHorizontal: StyleVariable.scaleAndSpacing16,
     paddingVertical: 0,
@@ -347,7 +372,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button3: {
-    backgroundColor: Color.monochromeBlack40,
+    backgroundColor: Color.outline,
     paddingHorizontal: StyleVariable.scaleAndSpacing24,
     paddingVertical: StyleVariable.scaleAndSpacing8,
     flexDirection: "row",
@@ -358,7 +383,6 @@ const styles = StyleSheet.create({
   button5: {
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: Color.monochromeWhite,
   },
   wrapper4: {
     flexDirection: "row",
@@ -390,11 +414,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonEnabled: {
-    backgroundColor: Color.primary,
+    backgroundColor: Color.oNprimary,
     color: Color.onPrimary,
   },
   buttonDisabled: {
-    backgroundColor: Color.monochromeBlack40,
+    backgroundColor: Color.error,
     color: Color.monochromeBlack,
   },
   signUpEmptyState: {
@@ -436,7 +460,6 @@ const styles = StyleSheet.create({
     padding: StyleVariable.scaleAndSpacing12,
     flexDirection: "row",
   },
-  // existing styles...
   buttonEnabled: {
     backgroundColor: Color.primary,
     color: Color.onPrimary,
@@ -450,6 +473,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 15,
     textAlign: "center",
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 10,
+    zIndex: 1,
   },
 });
 
