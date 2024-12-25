@@ -100,8 +100,8 @@ const LoginEmptyState = () => {
         <View style={[styles.frameChild, styles.fieldFlexBox]} />
       </View>
       <View style={[styles.button2, styles.button2SpaceBlock]}>
-        <View style={[styles.button3, styles.buttonFlexBox , isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-          <Text style={[styles.button4]} onPress={handleLogin}>
+        <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
+          <Text style={[styles.button4, { color: Color.onPrimary }]} onPress={handleLogin}>
             Login
           </Text>
         </View>
@@ -303,8 +303,8 @@ const styles = StyleSheet.create({
   },
   // New styles for the button states
   buttonEnabled: {
-    backgroundColor: Color.primaryColorsPrimary1,
-    color: Color.monochromeWhite,
+    backgroundColor: Color.primary,
+    color: Color.onPrimary,
   },
   buttonDisabled: {
     backgroundColor: Color.monochromeBlack40,
