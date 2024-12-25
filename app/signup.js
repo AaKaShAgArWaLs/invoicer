@@ -223,7 +223,7 @@ const SignUpEmptyState = () => {
         </View>
         <View style={[styles.button2, styles.button2SpaceBlock]}>
           <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-            <Text style={[styles.button4, { color: Color.onPrimary }]} onPress={handleSignUp}>
+            <Text style={[styles.button4, { color: isFormValid ? Color.onPrimary : Color.shadow }]} onPress={handleSignUp}>
               Sign Up
             </Text>
           </View>
@@ -376,10 +376,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button3: {
-    backgroundColor: Color.outline,
+    backgroundColor: Color.outlineVariant,
     paddingHorizontal: StyleVariable.scaleAndSpacing24,
     paddingVertical: StyleVariable.scaleAndSpacing8,
     flexDirection: "row",
+    borderBlockColor: Color.shadow,
     gap: StyleVariable.scaleAndSpacing8,
     alignSelf: "stretch",
     justifyContent: "center",
@@ -418,12 +419,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonEnabled: {
-    backgroundColor: Color.onPrimary,
+    backgroundColor: Color.inverseSurface,
     color: Color.onPrimary,
   },
   buttonDisabled: {
-    backgroundColor: Color.outline,
-    color: Color.monochromeBlack,
+    backgroundColor: Color.yellow,
+    color: Color.onError,
   },
   signUpEmptyState: {
     width: "100%",
