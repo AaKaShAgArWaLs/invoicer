@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, CheckBox, Alert, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { StyleVariable, FontFamily, FontSize, Color, Border } from "./Styles";
+import { StyleVariable, FontSize, Color, Border } from "./Styles";
 import { ScrollView } from "react-native-gesture-handler";
 import { IconButton } from 'react-native-paper';
 
@@ -91,7 +91,6 @@ const SignUpEmptyState = () => {
               Please sign up to enjoy all Expen features
             </Text>
           </View>
-          {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
           <View style={styles.forms}>
             <View style={styles.wrapperFlexBox}>
               <Text style={[styles.label, styles.labelTypo]}>Name</Text>
@@ -128,7 +127,6 @@ const SignUpEmptyState = () => {
                   icon={showPassword ? "eye-off" : "eye"}
                   onPress={togglePasswordVisibility}
                   size={24}
-                  color={Color.onError}
                   style={styles.eyeIcon}
                 />
               </View>
@@ -137,11 +135,27 @@ const SignUpEmptyState = () => {
               <Text style={[styles.label, styles.labelTypo]}>Repeat Password</Text>
               <View style={styles.passwordContainer}>
                 <TextInput
-                  style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.onErr, paddingRight: 40 }]}
+                  style={[ 
+                    styles.placeholder, 
+                    styles.input, 
+                    { 
+                      borderRadius: Border.radius, 
+                      borderWidth: Border.width, 
+                      paddingRight: 40, 
+                    }
+                  ]}
                   placeholder="Repeat Password"
-                  placeholderTextColor={styles.placeholder.color}                  secureTextEntry={!showConfirmPassword}
+                  placeholderTextColor={styles.placeholder.color}
+                  secureTextEntry={!showConfirmPassword}
                   value={confirmPassword}
-                  onChangeText={setConfirmPassword}
+                  onChangeText={(text) => {
+                    setConfirmPassword(text);
+                    if (password && password !== text) {
+                      setErrorMessage("Passwords do not match");
+                    } else {
+                      setErrorMessage("");
+                    }
+                  }}                  
                 />
                 <IconButton
                   icon={showConfirmPassword ? "eye-off" : "eye"}
@@ -150,6 +164,9 @@ const SignUpEmptyState = () => {
                   style={styles.eyeIcon}
                 />
               </View>
+              {errorMessage ? (
+                <Text style={styles.errorText}>{errorMessage}</Text>
+              ) : null}
             </View>
             <View style={styles.checkboxContainer}>
               <CheckBox
@@ -223,7 +240,7 @@ const SignUpEmptyState = () => {
         </View>
         <View style={[styles.button2, styles.button2SpaceBlock]}>
           <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-            <Text style={[styles.button4, { color: isFormValid ? Color.onPrimary : Color.shadow }]} onPress={handleSignUp}>
+            <Text style={[styles.button4]} onPress={() => isFormValid && handleSignUp()}>
               Sign Up
             </Text>
           </View>
@@ -243,12 +260,13 @@ const styles = StyleSheet.create({
   input: {
     color: Color.shadow,
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Color.lightGrey,
     padding: StyleVariable.scaleAndSpacing12,
     flexDirection: "row",
     borderRadius: Border.radius,
     borderWidth: 1,
     borderColor: Color.outline,
+    opacity: 0.9,
   },
   button2SpaceBlock: {
     paddingHorizontal: StyleVariable.scaleAndSpacing16,
@@ -256,7 +274,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   labelTypo: {
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -277,12 +294,10 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
     textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
     fontWeight: "600",
   },
   dontHaveAnTypo: {
     textAlign: "center",
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -302,14 +317,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     lineHeight: 32,
     textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
     fontWeight: "600",
     color: Color.primary,
     alignSelf: "stretch",
   },
   pleaseSignUp: {
-    color: Color.monochromeBlack80,
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -318,7 +330,6 @@ const styles = StyleSheet.create({
   },
   label: {
     color: Color.monochromeBlack100,
-    fontFamily: FontFamily.newFontFamily,
     alignSelf: "stretch",
   },
   placeholder: {
@@ -335,7 +346,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flexDirection: "row",
     alignSelf: "stretch",
-    backgroundColor: Color.monochromeWhite,
   },
   forms: {
     gap: StyleVariable.scaleAndSpacing24,
@@ -365,8 +375,6 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   GoogleBut: {
-    backgroundColor: Color.monochromeWhite,
-    borderColor: Color.monochromeBlack100,
     borderWidth: 1,
     paddingHorizontal: StyleVariable.scaleAndSpacing24,
     paddingVertical: StyleVariable.scaleAndSpacing8,
@@ -412,18 +420,18 @@ const styles = StyleSheet.create({
     width: 375,
     height: 34,
   },
-  outlineText: {
-    color: "red",
-    fontSize: 16,
-    marginBottom: 15,
-    textAlign: "center",
-  },
+  // outlineText: {
+  //   color: "red",
+  //   fontSize: 16,
+  //   marginBottom: 15,
+  //   textAlign: "center",
+  // },
   buttonEnabled: {
     backgroundColor: Color.inverseSurface,
     color: Color.onPrimary,
   },
   buttonDisabled: {
-    backgroundColor: Color.yellow,
+    backgroundColor: Color.primary,
     color: Color.onError,
   },
   signUpEmptyState: {
@@ -440,7 +448,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   labelTypo: {
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -473,12 +480,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.monochromeBlack40,
     color: Color.monochromeBlack,
   },
-  outlineText: {
-    color: "red",
-    fontSize: 16,
-    marginBottom: 15,
-    textAlign: "center",
-  },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -488,6 +489,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     zIndex: 1,
+  },
+  errorText: {
+    color: Color.onError,
+    marginTop: 5,
   },
 });
 

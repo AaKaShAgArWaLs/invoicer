@@ -77,3 +77,16 @@ export const Padding = {
   p_5xs: 8,
   p_xs: 12,
 };
+
+/* Fonts */ 
+export const Font = {
+  fontInterBody1SemiBold: {
+    fontFamily: FontFamily.interBody1SemiBold,
+  },
+  fontInterHeading4SemiBold: {
+    fontFamily: FontFamily.interHeading4SemiBold,
+  },
+  fontInterBody1Regular: {
+    fontFamily: FontFamily.interBody1Regular,
+  },
+};

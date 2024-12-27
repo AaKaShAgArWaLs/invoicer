@@ -3,12 +3,14 @@ import { useState } from "react";
 import { StyleSheet, View, Text, TextInput, Image } from "react-native";
 import { StyleVariable, FontFamily, FontSize, Color, Border } from './Styles';
 import { useNavigation } from '@react-navigation/native';
+import { IconButton } from 'react-native-paper';
 
 const LoginEmptyState = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignUp = () => {
     navigation.navigate('signup'); 
@@ -41,6 +43,10 @@ const LoginEmptyState = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   // Check if both email and password are filled in
   const isFormValid = email.trim() !== "" && password.trim() !== "";
 
@@ -62,12 +68,9 @@ const LoginEmptyState = () => {
             <Text style={[styles.label, styles.labelTypo]}>Email</Text>
             <View style={[styles.field, styles.fieldFlexBox]}>
               <TextInput
-                style={[
-                  styles.placeholder,
-                  styles.labelTypo,
-                  { borderColor: Color.outline, borderRadius: Border.radius, borderWidth: Border.width }
-                ]}
+                style={styles.inputField}
                 placeholder="Email"
+                placeholderTextColor={styles.placeholder.color}
                 value={email}
                 onChangeText={setEmail}
               />
@@ -78,15 +81,19 @@ const LoginEmptyState = () => {
               <Text style={[styles.label, styles.labelTypo]}>Password</Text>
               <View style={[styles.field, styles.fieldFlexBox]}>
                 <TextInput
-                  style={[
-                    styles.placeholder,
-                    styles.labelTypo,
-                    { borderColor: Color.outline, borderRadius: Border.radius, borderWidth: Border.width }
-                  ]}
+                  style={styles.inputField}
                   placeholder="Password"
-                  secureTextEntry
+                  placeholderTextColor={styles.placeholder.color}
+                  secureTextEntry={!showPassword}
                   value={password}
                   onChangeText={setPassword}
+                />
+                <IconButton
+                  icon={showPassword ? "eye-off" : "eye"}
+                  onPress={togglePasswordVisibility}
+                  size={24}
+                  color={Color.primary}
+                  style={{ position: 'absolute', right: 1 }}
                 />
               </View>
               <View style={[styles.button, styles.buttonFlexBox]}>
@@ -104,9 +111,7 @@ const LoginEmptyState = () => {
       <View style={styles.orLoginWithParent}>
         <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
           <Image
-            source={require("../assets/images/google.svg")}
-            style={{ width: 25, height: 25 }}
-          />
+            source={require("../assets/images/google.svg")}style={{ width: 25, height: 25 }}/>
         </View>
         <Text style={[styles.orLoginWith, styles.dontHaveAnTypo]}>
           or Login with
@@ -122,8 +127,11 @@ const LoginEmptyState = () => {
           ]}
         >
           <Text
-            style={[styles.button4, { color: Color.tertiary }]}
-            onPress={handleLogin}
+            style={[
+              styles.button4,
+              { color: isFormValid ? Color.onPrimary : Color.shadow }
+            ]}
+            onPress={isFormValid ? handleLogin : null}
           >
             Login
           </Text>
@@ -148,26 +156,35 @@ const LoginEmptyState = () => {
 };
 
 const styles = StyleSheet.create({
+  inputField: {
+    backgroundColor: Color.lightGrey,
+    flex: 1,
+    borderColor: Color.outline,
+    borderRadius: Border.radius,
+    borderWidth: Border.width,
+    padding: StyleVariable.scaleAndSpacing12,
+  },
   button2SpaceBlock: {
     paddingHorizontal: StyleVariable.scaleAndSpacing16,
     paddingVertical: 0,
     alignSelf: "stretch",
   },
   labelTypo: {
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
     textAlign: "left",
-    borderRadius: StyleVariable.scaleAndSpacing4,
+    borderRadius: Border.radius,
     justifyContent: "center",
     alignSelf: "stretch",
     alignItems: "center",
     borderWidth: 0,
   },
   buttonFlexBox: {
-    borderRadius: StyleVariable.scaleAndSpacing4,
+    borderRadius: Border.radius,
     flexDirection: "row",
+    paddingHorizontal: StyleVariable.scaleAndSpacing24,
+    paddingVertical: StyleVariable.scaleAndSpacing8,
     alignItems: "center",
   },
   buttonTypo: {
@@ -175,12 +192,10 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
     textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
     fontWeight: "600",
   },
   dontHaveAnTypo: {
     textAlign: "center",
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -199,14 +214,12 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     lineHeight: 32,
     textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
     fontWeight: "600",
-    color: Color.monochromeBlack100,
+    color: Color.primary,
     alignSelf: "stretch",
   },
   pleaseLogIn: {
     color: Color.monochromeBlack80,
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -215,11 +228,10 @@ const styles = StyleSheet.create({
   },
   label: {
     color: Color.monochromeBlack100,
-    fontFamily: FontFamily.interBody1Regular,
     alignSelf: "stretch",
   },
   placeholder: {
-    color: Color.monochromeBlack60,
+    color: Color.outline,
     flex: 1,
     backgroundColor: Color.backgroundBackground4,
     padding: StyleVariable.scaleAndSpacing12,
@@ -262,18 +274,15 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   GoogleBut: {
-    backgroundColor: Color.monochromeWhite,
-    borderColor: Color.monochromeBlack100,
     borderWidth: 1,
     paddingHorizontal: StyleVariable.scaleAndSpacing24,
-    paddingVertical: StyleVariable.scaleAndSpacing4,
+    paddingVertical: StyleVariable.scaleAndSpacing8,
     flexDirection: "row",
-    gap: StyleVariable.scaleAndSpacing4,
+    gap: StyleVariable.scaleAndSpacing8,
     alignSelf: "stretch",
     justifyContent: "center",
   },
   button3: {
-    backgroundColor: Color.monochromeBlack40,
     paddingHorizontal: StyleVariable.scaleAndSpacing24,
     paddingVertical: StyleVariable.scaleAndSpacing4,
     flexDirection: "row",
@@ -319,11 +328,11 @@ const styles = StyleSheet.create({
   },
   buttonEnabled: {
     backgroundColor: Color.primary,
-    color: Color.onPrimary,
+    color: Color.onError,
   },
   buttonDisabled: {
-    backgroundColor: Color.monochromeBlack40,
-    color: Color.monochromeBlack,
+    backgroundColor: Color.outlineVariant,
+    color: Color.shadow,
   },
   errorText: {
     color: 'red',

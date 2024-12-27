@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
-import { StyleVariable, FontFamily, FontSize, Color } from './Styles';
+import { StyleVariable, FontSize, Color } from './Styles';
 import { useNavigation } from '@react-navigation/native';
 
 const ForgetEmptyState = () => {
@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   labelTypo: {
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -112,9 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 0,
   },
-  // fieldFlexBox: {
-  //   
-  // },
+
   buttonFlexBox: {
     borderRadius: StyleVariable.scaleAndSpacing8,
     flexDirection: "row",
@@ -125,13 +122,10 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
     textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
     fontWeight: "600",
   },
   dontHaveAnTypo: {
     textAlign: "center",
-      // color: Color.monochromeBlack80,
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -150,14 +144,12 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     lineHeight: 32,
     textAlign: "left",
-    fontFamily: FontFamily.newFontFamily,
     fontWeight: "600",
-    color: Color.monochromeBlack100,
+    color: Color.primary,
     alignSelf: "stretch",
   },
   pleaseLogIn: {
     color: Color.monochromeBlack80,
-    fontFamily: FontFamily.newFontFamily,
     lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
@@ -166,7 +158,6 @@ const styles = StyleSheet.create({
   },
   label: {
     color: Color.monochromeBlack100,
-    fontFamily: FontFamily.interBody1Regular,
     alignSelf: "stretch",
   },
   placeholder: {
