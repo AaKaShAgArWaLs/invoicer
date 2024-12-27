@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   placeholder: {
-    color: Color.monochromeBlack60,
+    color: Color.outline,
     flex: 1,
     backgroundColor: Color.backgroundBackground4,
     padding: StyleVariable.scaleAndSpacing12,
