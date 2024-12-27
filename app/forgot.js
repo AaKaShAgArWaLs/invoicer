@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
-import { StyleVariable, FontSize, Color } from './Styles';
+import { StyleVariable, FontSize, Color, Border } from './Styles';
 import { useNavigation } from '@react-navigation/native';
 
 const ForgetEmptyState = () => {
@@ -56,9 +56,10 @@ const ForgetEmptyState = () => {
           <View style={styles.wrapperFlexBox}>
             <Text style={[styles.label, styles.labelTypo]}>Email</Text>
             <View style={[styles.field, styles.fieldFlexBox]}>
-              <TextInput
-                style={[styles.placeholder, styles.labelTypo ,{borderColor: 'transparent'}]}
+            <TextInput
+                style={styles.inputField}
                 placeholder="Email"
+                placeholderTextColor={styles.placeholder.color}
                 value={email}
                 onChangeText={setEmail}
               />
@@ -95,6 +96,14 @@ const ForgetEmptyState = () => {
 };
 
 const styles = StyleSheet.create({
+  inputField: {
+    backgroundColor: Color.lightGrey,
+    flex: 1,
+    borderColor: Color.outline,
+    borderRadius: Border.radius,
+    borderWidth: Border.width,
+    padding: StyleVariable.scaleAndSpacing12,
+  },
   button2SpaceBlock: {
     paddingHorizontal: StyleVariable.scaleAndSpacing16,
     paddingVertical: 0,
@@ -264,12 +273,10 @@ const styles = StyleSheet.create({
   },
   // New styles for the button states
   buttonEnabled: {
-    backgroundColor: Color.primaryColorsPrimary1,
-    color: Color.monochromeWhite,
+    backgroundColor: Color.primary,
   },
   buttonDisabled: {
-    backgroundColor: Color.monochromeBlack40,
-    color: Color.monochromeBlack,
+    backgroundColor: Color.outlineVariant,
   },
   errorText: {
     color: 'red',

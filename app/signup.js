@@ -247,7 +247,7 @@ const SignUpEmptyState = () => {
           <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
             <Text style={styles.dontHaveAnTypo}>Already have an account?</Text>
             <TouchableOpacity onPress={handleLogIn} style={styles.button5}>
-              <Text style={styles.button1}>Log In</Text>
+              <Text style={[styles.button1, styles.buttonTypo]}>Log In</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.interBody1SemiBold_size,
   },
   wrapperFlexBox: {
-    gap: StyleVariable.scaleAndSpacing8,
+    gap: StyleVariable.scaleAndSpacing4,
     alignSelf: "stretch",
   },
   wrapper: {

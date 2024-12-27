@@ -17,7 +17,7 @@ export const Color = {
   onSurfaceVariant: "rgb(67, 71, 78)",
   outline: "rgb(116, 119, 127)",
   lightGrey: "rgb(242, 242, 242)",
-  outlineVariant: "rgb(195, 198, 207)",
+  outlineVariant: "rgb(214, 214, 214)",
   shadow: "rgb(0, 0, 0)",
   inverseSurface: "rgb(47, 48, 51)",
   inverseOnSurface: "rgb(241, 240, 244)",

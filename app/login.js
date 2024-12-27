@@ -109,13 +109,13 @@ const LoginEmptyState = () => {
         </View>
       </View>
       <View style={styles.orLoginWithParent}>
+       <Text style={[styles.orLoginWith, styles.dontHaveAnTypo]}>
+          or Login with
+        </Text>
         <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
           <Image
             source={require("../assets/images/google.svg")}style={{ width: 25, height: 25 }}/>
         </View>
-        <Text style={[styles.orLoginWith, styles.dontHaveAnTypo]}>
-          or Login with
-        </Text>
         <View style={[styles.frameChild, styles.fieldFlexBox]} />
       </View>
       <View style={[styles.button2, styles.button2SpaceBlock]}>
@@ -138,11 +138,9 @@ const LoginEmptyState = () => {
         </View>
         <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
           <Text style={styles.dontHaveAnTypo}>Don’t have an account?</Text>
-          <View style={[styles.button5, styles.buttonFlexBox]}>
-            <Text
-              style={[styles.button1, styles.buttonTypo]}
-              onPress={handleSignUp} // Add navigation on press
-            >
+          <View style={[styles.button5]}>
+            <Text style={[styles.button1, styles.buttonTypo]}
+              onPress={handleSignUp}>
               Sign Up
             </Text>
           </View>
@@ -188,7 +186,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonTypo: {
-    lineHeight: 24,
     letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
     textAlign: "left",
@@ -196,8 +193,6 @@ const styles = StyleSheet.create({
   },
   dontHaveAnTypo: {
     textAlign: "center",
-    lineHeight: 24,
-    letterSpacing: -0.3,
     fontSize: FontSize.interBody1SemiBold_size,
   },
   wrapperFlexBox: {
@@ -297,6 +292,7 @@ const styles = StyleSheet.create({
   },
   wrapper4: {
     flexDirection: "row",
+    alignContent: "center",
     justifyContent: "center",
   },
   button2: {
@@ -324,15 +320,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
     flex: 1,
-    backgroundColor: Color.monochromeWhite,
   },
   buttonEnabled: {
     backgroundColor: Color.primary,
-    color: Color.onError,
   },
   buttonDisabled: {
     backgroundColor: Color.outlineVariant,
-    color: Color.shadow,
   },
   errorText: {
     color: 'red',
