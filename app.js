@@ -3,6 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import SignUpEmptyState from './app/signup'; // Import your signup screen
 import LoginEmptyState from './app/login'; // Import your login screen
 import ForgetEmptyState from './app/forgot.js'
+import DataEntry from './app/data.js';
+import OTPVerification from './app/otp.js'
+import NewPassword from './app/new.js'
 
 const Stack = createStackNavigator();
 
@@ -14,6 +17,9 @@ const App = () => {
         <Stack.Screen name="login" component={LoginEmptyState} />
         <Stack.Screen name="home" component={SignUpEmptyState} />
         <Stack.Screen name="forgot" component={ForgetEmptyState} />
+        <Stack.Screen name="data" component={DataEntry} />
+        <Stack.Screen name="otp" component={OTPVerification} />
+        <Stack.Screen name="new" component={NewPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );

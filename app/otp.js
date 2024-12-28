@@ -1,34 +1,43 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { StyleVariable, FontSize, Color, Border } from './Styles';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native'; 
 import config from './config';
 
-const ForgetEmptyState = () => {
+const OTPVerification = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
+  const route = useRoute(); 
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [errorMessage, setErrorMessage] = useState('');
+  const { email_id } = route.params;
+
+  // Create an array of refs to manage OTP input fields
+  const otpRefs = useRef([]);
 
   const handleLogin = () => {
     navigation.navigate('login'); // Navigate to the Login screen
   };
 
-  const handleforget = async () => {
+  const handleOTPVerify = async () => {
     try {
-      const response = await fetch(`${config.ipAddress}/api/forgot`, {
+        const dataToSubmit = {
+            otp: otp.join(''),
+            email_id,
+        };
+      const response = await fetch(`${config.ipAddress}/api/otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify(dataToSubmit), // Join OTP array into a string
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Navigate to OTP screen with email as parameter
-        navigation.navigate('otp', { email_id:email }); // Pass email to OTPVerification screen
+        navigation.navigate('new', { user_id: data.user_id }); // Navigate to the password reset page
       } else {
         setErrorMessage(data.message); // Set error message if response not OK
       }
@@ -38,8 +47,21 @@ const ForgetEmptyState = () => {
     }
   };
 
-  // Check if email is filled in
-  const isFormValid = email.trim() !== "";
+  const handleInputChange = (text, index) => {
+    // Allow only numbers
+    if (/[^0-9]/.test(text)) return; // If input is not a number, don't update
+
+    const newOtp = [...otp];
+    newOtp[index] = text; // Update the OTP array
+    setOtp(newOtp);
+
+    // Move focus to the next input if the current input is filled
+    if (text.length === 1 && index < 5) {
+      otpRefs.current[index + 1]?.focus(); // Focus on next input
+    }
+  };
+
+  const isFormValid = otp.join('').length === 6; // OTP length validation
 
   return (
     <View style={styles.loginEmptyState}>
@@ -48,23 +70,28 @@ const ForgetEmptyState = () => {
         <View style={styles.wrapperFlexBox}>
           <Text style={styles.login}>Forgot your password?</Text>
           <Text style={styles.pleaseLogIn}>
-            Please enter your email address and we will send you a link to reset your password
+            Please enter the OTP sent to your email to verify your identity
           </Text>
         </View>
-        {errorMessage ? ( 
+        {errorMessage ? (
           <Text style={styles.errorText}>{errorMessage}</Text>
         ) : null}
         <View style={styles.forms}>
           <View style={styles.wrapperFlexBox}>
-            <Text style={[styles.label, styles.labelTypo]}>Email</Text>
-            <View style={[styles.field, styles.fieldFlexBox]}>
-              <TextInput
-                style={styles.inputField}
-                placeholder="Email"
-                placeholderTextColor={styles.placeholder.color}
-                value={email}
-                onChangeText={setEmail}
-              />
+            <Text style={[styles.label, styles.labelTypo]}>OTP</Text>
+            <View style={styles.otpContainer}>
+              {otp.map((digit, index) => (
+                <TextInput
+                  key={index}
+                  ref={(input) => (otpRefs.current[index] = input)} // Assign refs for OTP fields
+                  style={styles.otpInput}
+                  value={digit}
+                  onChangeText={(text) => handleInputChange(text, index)}
+                  maxLength={1} // Only allow one digit per input
+                  keyboardType="numeric" // Only allow numeric keyboard
+                  textAlign="center"
+                />
+              ))}
             </View>
           </View>
         </View>
@@ -73,15 +100,15 @@ const ForgetEmptyState = () => {
         <View style={[styles.frameChild, styles.fieldFlexBox]} />
       </View>
       <View style={[styles.button2, styles.button2SpaceBlock]}>
-        <View style={[styles.button3, styles.buttonFlexBox , isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
-          <Text style={[styles.button4]} onPress={handleforget}>
-            Send Request
+        <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
+          <Text style={[styles.button4]} onPress={handleOTPVerify}>
+            Verify OTP
           </Text>
         </View>
         <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
           <View style={[styles.button5, styles.buttonFlexBox]}>
-            <Text 
-              style={[styles.button1, styles.buttonTypo]} 
+            <Text
+              style={[styles.button1, styles.buttonTypo]}
               onPress={handleLogin} // Add navigation on press
             >
               Back to log in
@@ -281,6 +308,21 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  otpContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: '60%',
+  },
+  otpInput: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Color.outline,
+    textAlign: "center",
+    fontSize: 18,
+    marginHorizontal: 5,
+  }
 });
 
-export default ForgetEmptyState;
+export default OTPVerification;

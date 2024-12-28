@@ -7,7 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { IconButton } from 'react-native-paper';
 import config from './config';
 
-const SignUpEmptyState = () => {
+const NewPassword = () => {
   const navigation = useNavigation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -87,38 +87,19 @@ const SignUpEmptyState = () => {
         <View style={styles.wrapper} />
         <View style={[styles.wrapper1, styles.button2SpaceBlock]}>
           <View style={styles.wrapperFlexBox}>
-            <Text style={styles.signUp}>Sign Up</Text>
+            <Text style={styles.signUp}>Reset Your Password</Text>
             <Text style={styles.pleaseSignUp}>
-              Please sign up to enjoy all Expen features
+              Please enter a new password and confirm it to reset your password
             </Text>
           </View>
           <View style={styles.forms}>
+
             <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Name</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline }]}
-                placeholder="Name"
-                placeholderTextColor={styles.placeholder.color}
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Email</Text>
-              <TextInput
-                style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width }]}
-                placeholder="Email"
-                placeholderTextColor={styles.placeholder.color}
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-            <View style={styles.wrapperFlexBox}>
-              <Text style={[styles.label, styles.labelTypo]}>Password</Text>
+              <Text style={[styles.label, styles.labelTypo]}>New Password</Text>
               <View style={styles.passwordContainer}>
                 <TextInput
                   style={[styles.placeholder, styles.input, { borderRadius: Border.radius, borderWidth: Border.width, borderColor: Color.outline, paddingRight: 40 }]}
-                  placeholder="Password"
+                  placeholder="Enter New Password"
                   secureTextEntry={!showPassword}
                   placeholderTextColor={styles.placeholder.color}
                   value={password}
@@ -173,15 +154,6 @@ const SignUpEmptyState = () => {
           </View>
         </View>
         <View style={styles.orSignUpWithParent}>
-          
-          <Text style={[styles.orSignUpWith, styles.dontHaveAnTypo]}>
-            or Sign up with
-          </Text>
-
-          <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
-            <Image source={require('../assets/images/google.svg')} style={{ width: 25, height: 25 }} />
-          </View>
-          <View style={[styles.frameChild, styles.fieldFlexBox]} />
         </View>
         <View style={[styles.button2, styles.button2SpaceBlock]}>
           <View style={[styles.button3, styles.buttonFlexBox, isFormValid ? styles.buttonEnabled : styles.buttonDisabled]}>
@@ -441,4 +413,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpEmptyState;
+export default NewPassword;

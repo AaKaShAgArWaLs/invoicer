@@ -1,3 +1,4 @@
+
 /* Colors */
 export const Color = {
   primary: "rgb(0, 95, 175)",
@@ -22,7 +23,8 @@ export const Color = {
   inverseSurface: "rgb(47, 48, 51)",
   inverseOnSurface: "rgb(241, 240, 244)",
   inversePrimary: "rgb(165, 200, 255)",
-  yellow: "rgb(255, 202, 40)", 
+  yellow: "rgb(255, 202, 40)",
+  black: "rgb(0,0,0)", 
   elevation: {
     level0: "transparent",
     level1: "rgb(240, 244, 251)",
