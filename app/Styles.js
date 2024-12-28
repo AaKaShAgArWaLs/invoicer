@@ -1,3 +1,4 @@
+
 /* Colors */
 export const Color = {
   primary: "rgb(0, 95, 175)",
@@ -7,7 +8,6 @@ export const Color = {
   tertiary: "rgb(0, 99, 154)",
   tertiaryContainer: "rgb(206, 229, 255)",
   onTertiaryContainer: "rgb(0, 29, 50)",
-  onError: "rgb(186, 26, 26)",
   errorContainer: "rgb(255, 218, 214)",
   onErrorContainer: "rgb(65, 0, 2)",
   background: "rgb(253, 252, 255)",
@@ -17,12 +17,15 @@ export const Color = {
   onSurfaceVariant: "rgb(67, 71, 78)",
   outline: "rgb(116, 119, 127)",
   lightGrey: "rgb(242, 242, 242)",
+  Gray:"rgb(150, 154, 165)",
   outlineVariant: "rgb(214, 214, 214)",
   shadow: "rgb(0, 0, 0)",
   inverseSurface: "rgb(47, 48, 51)",
   inverseOnSurface: "rgb(241, 240, 244)",
   inversePrimary: "rgb(165, 200, 255)",
-  yellow: "rgb(255, 202, 40)", 
+  yellow: "rgb(255, 202, 40)",
+  onError: "rgb(186, 26, 26)",
+  green: "rgb(27, 194, 87)",
   elevation: {
     level0: "transparent",
     level1: "rgb(240, 244, 251)",
@@ -53,7 +56,9 @@ export const FontFamily = {
 /* Font Sizes */
 export const FontSize = {
   interBody1SemiBold_size: 16,
+  interBody1Regular_size: 20,
   interHeading4SemiBold_size: 24,
+  interHeading8SemiBold_size: 32, //
 };
 
 /* Style Variables */

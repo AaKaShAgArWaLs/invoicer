@@ -1,81 +1,169 @@
-import * as React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React, { useState } from 'react';
+import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 import { FontFamily, StyleVariable, FontSize, Gap, Color, Border } from "./Styles";
-import { IconButton,MD2Colors  } from "react-native-paper";
-import { LinearGradient } from "expo-linear-gradient";
-import { PaperProvider } from "react-native-paper";
+import { IconButton, MD2Colors } from "react-native-paper";
+import { Ionicons } from '@expo/vector-icons';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const HomeFilledState = () => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('This month');
+  const [items, setItems] = useState([
+    { label: 'This month', value: 'This month' },
+    { label: 'Last month', value: 'Last month' },
+    { label: 'Last 3 months', value: 'Last 3 months' },
+    { label: 'Last year', value: 'Last year' },
+  ]);
+
+  const [notifications, setNotifications] = React.useState(0);
+  const [profile, setProfile] = React.useState({
+    name: 'User',
+    avatar: null
+  });
+  const [home, setHome] = React.useState({
+    selected: true
+  });
+  const [customer, setCustomer] = React.useState({
+    selected: false
+  });
+  const [showFilters, setShowFilters] = useState(false);
+
   return (
-    <PaperProvider>
-      <View style={styles.homeFilledState}>
-        <View style={[styles.header, { height: 230, width: "100%" }]}>
-          <LinearGradient
-            colors={['#000066', '#00ffea']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-          />
-          <View style={[styles.wrapper1,]}>
-            <Text style={styles.headerTitle}>Expen</Text>
-            <View style={styles.headerIcons}>
-              <IconButton icon="bell" size={34} color="#FF0000" />
-              <IconButton icon="account-circle" size={44} color="#FFFFFF" />
-            </View>
+    <View style={styles.homeFilledState}>
+      <View style={[styles.header, { height: 220, width: "100%" }]}>
+        <View
+          style={[
+            styles.wrapper1,
+            { marginLeft: StyleVariable.scaleAndSpacing16 },
+          ]}
+        >
+          <Text style={styles.headerTitle}>Expen</Text>
+          <View style={styles.headerIcons}>
+            <IconButton icon="bell" size={24} iconColor="#FFFFFF" />
+            <IconButton icon="account-circle" size={40} iconColor="#FFFFFF" />
           </View>
+        </View>
+        <View style={styles.wrapper2}>
+          <View style={{flexDirection: 'row', alignItems:'center'}}>
           <Text style={styles.walletTitle}>Main Wallet</Text>
+          <Ionicons name="chevron-down-outline" size={18} color={Color.onPrimary} style={{marginLeft: 14}}/>
+          </View>
           <Text style={styles.walletAmount}>IDR 0</Text>
         </View>
-        <View style={styles.container1}>
-          <View style={styles.summaryContainer}>
-            <View style={styles.card}>
-              <Text style={styles.emoji}>🤑</Text>
-              <Text style={styles.incomeLabel}>Income</Text>
-              <Text style={styles.amount}>IDR 0</Text>
+      </View>
+      <View style={styles.container}>
+      <Text style={styles.label}>Summary</Text>
+
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        style={styles.dropdown} // Main dropdown box
+        dropDownContainerStyle={styles.dropdownContainer} // Dropdown list
+        textStyle={styles.textStyle} // Text styling
+        arrowIconStyle={styles.arrowStyle} // Arrow alignment
+      />
+    </View>
+
+      
+
+      <ScrollView style={styles.cardsContainer}>
+        <View style={styles.cardRow}>
+          <TouchableOpacity style={[styles.card, styles.cardGreen]}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.cardAmount}>₹ 0</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={[styles.cardLabel, { color: Color.green }]}>To Collect</Text>
+                  <Ionicons name="arrow-down-outline" size={16} color={Color.green} style={{ marginLeft: 4 }} />
+                </View>
+              </View>
+              <Ionicons name="chevron-forward-outline" size={20} color={Color.Gray} />
             </View>
-            <View style={styles.card}>
-              <Text style={styles.emoji}>💸</Text>
-              <Text style={styles.expenseLabel}>Expense</Text>
-              <Text style={styles.amount}>IDR 0</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.card, styles.cardRed]}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.cardAmount}>₹ 0</Text>
+                <View style={{ flexDirection: 'row', alignItems:'center' }}>
+                  <Text style={[styles.cardLabel, { color: Color.onError }]}>To Pay</Text>
+                  <Ionicons name="arrow-up-outline" size={16} color={Color.onError} style={{ marginLeft: 4}} />
+                </View>
+              </View>
+              <Ionicons name="chevron-forward-outline" size={20} color={Color.Gray} />
             </View>
-          </View>
-          <View style={styles.pocketsGoalsContainer}>
-            <View style={styles.card}>
-              <Text style={styles.emoji}>👜</Text>
-              <Text style={styles.pocketsLabel}>Pockets</Text>
-              <Text style={styles.amount}>0 Pockets</Text>
-            </View>
-            <View style={styles.card}>
-              <Text style={styles.emoji}>🎯</Text>
-              <Text style={styles.goalsLabel}>Goals</Text>
-              <Text style={styles.amount}>0 Goals</Text>
-            </View>
-          </View>
-          <View style={styles.recentTransactionContainer}>
-            <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
-            <Text style={styles.noTransactionText}>
-              No recent transaction for now
-            </Text>
-          </View>
+          </TouchableOpacity>
         </View>
-        <View style={styles.navBar}>
-          <View style={styles.navBarButton}>
-            <IconButton icon="home" size={24} color="#486cdd" />
-            <Text style={styles.navBarLabel}>Home</Text>
-          </View>
-          <View style={styles.navBarButton}>
-            <IconButton icon="chart-bar" size={24} />
-            <Text style={styles.navBarLabel}>Customer</Text>
-          </View>
-          <View style={styles.navBarButton}>
-            <IconButton icon="account" size={24} />
-            <Text style={styles.navBarLabel}>Profile</Text>
-          </View>
+        <View style={styles.cardRow}>
+          <TouchableOpacity style={styles.card}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.cardTitle}>Stock Value</Text>
+                <Text style={styles.cardDescription}>Value of Items</Text>
+              </View>
+              <Ionicons name="chevron-forward-outline" size={20} color={Color.Gray} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.cardAmount}>₹ 0</Text>
+                <Text style={styles.cardDescription}>This week's sale</Text>
+              </View>
+              <Ionicons name="chevron-forward-outline" size={20} color={Color.Gray} />
+            </View>
+          </TouchableOpacity>
         </View>
-        <View style={styles.floatingActionButton}>
-          <IconButton icon="plus" size={32} />
+
+        <View style={styles.cardRow}>
+          <TouchableOpacity style={styles.card}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.cardTitle}>Total Balance</Text>
+                <Text style={styles.cardDescription}>Cash + Bank Balance</Text>
+              </View>
+              <Ionicons name="chevron-forward-outline" size={20} color={Color.Gray} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.cardTitle}>Reports</Text>
+                <Text style={styles.cardDescription}>Sales, Party, GST...</Text>
+              </View>
+              <Ionicons name="chevron-forward-outline" size={20} color={Color.Gray} />
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      <View style={styles.recentTransactionContainer}>
+        <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
+        <Text style={styles.noTransactionText}>
+          No recent transaction for now
+        </Text>
+      </View>
+
+      <View style={styles.navBar}>
+        <View style={styles.navBarButton}>
+          <IconButton icon="home" size={24} color="#486cdd" />
+          <Text style={styles.navBarLabel}>Home</Text>
+        </View>
+        <View style={styles.navBarButton}>
+          <IconButton icon="chart-bar" size={24} />
+          <Text style={styles.navBarLabel}>Customer</Text>
+        </View>
+        <View style={styles.navBarButton}>
+          <IconButton icon="account" size={24} />
+          <Text style={styles.navBarLabel}>Profile</Text>
         </View>
       </View>
-    </PaperProvider>
+      <View style={styles.floatingActionButton}>
+        <IconButton icon="plus" iconColor="#ffffff" size={22} />
+      </View>
+    </View>
   );
 };
 
@@ -84,44 +172,63 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F5F5",
   },
+  header: {
+    backgroundColor: "#007AFF",
+    padding: 16,
+    paddingTop: 0,
+    height: 150,
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderColor: Color.primary,
+    borderBottomLeftRadius: Border.radius,
+    borderBottomRightRadius: Border.radius,
+  },
+
+  headerIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+  }, 
   wrapper1: {
   flexDirection: "row",
   justifyContent: "space-between",
+  alignItems: "center",
+  borderRadius: "10px",
   },
+  headerTitle: {
+    color: "#FFFFFF",
+    fontSize: FontSize.interHeading4SemiBold_size,
+    fontWeight: "bold",
+    alignItems: "center",
+  },
+  wrapper2:{
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 16,
+  },
+
   walletTitle: {
     color: "#FFFFFF",
-    fontSize: 18,
+    fontSize: FontSize.interHeading4SemiBold_size,
     fontWeight: "bold",
   },
   walletAmount: {
     color: "#FFFFFF",
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: FontSize.interHeading4SemiBold_size,
   },
-  container1: {
-    flex: 1,
-    alignItems: "center",
-  },
-  summaryContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: 16,
-  },
-  pocketsGoalsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: 16,
+  cardsContainer: {
+    paddingHorizontal: 10,
+    paddingVertical: 16,
   },
   card: {
     backgroundColor: "#ffffff", 
-    borderRadius: 12,
+    borderRadius: Border.radius,
     padding: 16,
     flex: 1,
+    width: "50%",
     margin: 4,
-    alignItems: "center",
-    shadowColor: "#000",
+    display: "flex",
+    flexDirection: "column",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -130,38 +237,61 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  emoji: {
-    fontSize: 22,
-    marginBottom: 8,
-    left : -10,
+  cardRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
   },
-  incomeLabel: {
-    fontWeight: "bold",
-    marginTop: 8,
+  cardGreen:{
+    backgroundColor: "rgba(36, 255, 113, 0.1)",
+    borderColor: "rgba(36, 255, 113, 0.5)",
+    shadowColor: "rgba(36, 255, 113, 1)",
+    borderWidth: 1,
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
-  expenseLabel: {
-    fontWeight: "bold",
-    marginTop: 8,
+  cardRed:{
+    backgroundColor: "rgba(186, 26, 26, 0.1)",
+    borderColor: "rgba(255, 78, 33, 0.4)",
+    shadowColor: "rgba(186, 26, 26, 1)",
+    color:Color.onErrorContainer,
+    borderWidth: 1,
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
-  pocketsLabel: {
-    fontWeight: "bold",
-    marginTop: 8,
+  cardAmount: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
-  goalsLabel: {
-    fontWeight: "bold",
-    marginTop: 8,
-  },
-  amount: {
+  cardLabel: {
     fontSize: 16,
-    color: "#333",
+  },
+  cardTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  cardDescription: {
+    fontSize: 14,
+    color: '#757575',
   },
   recentTransactionContainer: {
     width: "100%",
     alignItems: "center",
+    marginBottom: 18,
   },
   recentTransactionTitle: {
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 18,
   },
   noTransactionText: {
     color: "#888",
@@ -190,31 +320,38 @@ const styles = StyleSheet.create({
     elevation: 4,
     opacity: 0.8,
   },
-  header: {
-    backgroundColor: "#007AFF",
+  container: {
+    flexDirection: 'row', // Align items horizontally
+    alignItems: 'center', // Vertically align items
+    justifyContent: 'space-between', // Ensure proper spacing
+    padding: 16,
   },
-  headerTitle: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "bold",
-    alignItems: "center",
+  label: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 16, // Space between label and dropdown
   },
-  walletTitle: {
-    color: "#FFFFFF",
+  dropdown: {
+    flex: 1, // Take up remaining space
+    height: 40,
+    width: 50,
+    backgroundColor: '#f5f5f5',
+    borderColor: '#ddd',
+    borderRadius: 8, // Rounded corners
+    paddingHorizontal: 10,
+  },
+  dropdownContainer: {
+    width: 50, // Full width of parent container
+    backgroundColor: '#fff',
+    borderColor: '#ddd',
+    borderRadius: 8, // Match dropdown box
+  },
+  textStyle: {
     fontSize: 16,
-    fontWeight: "normal",
-    textAlign: "center",
+    color: '#333',
   },
-  walletAmount: {
-    color: "#FFFFFF",
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  headerIcons: {
-    flexDirection: "row",
-    alignItems: "center",
+  arrowStyle: {
+    marginRight: 10, // Space between text and arrow
   },
 });
-
 export default HomeFilledState;
