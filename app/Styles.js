@@ -8,7 +8,6 @@ export const Color = {
   tertiary: "rgb(0, 99, 154)",
   tertiaryContainer: "rgb(206, 229, 255)",
   onTertiaryContainer: "rgb(0, 29, 50)",
-  onError: "rgb(186, 26, 26)",
   errorContainer: "rgb(255, 218, 214)",
   onErrorContainer: "rgb(65, 0, 2)",
   background: "rgb(253, 252, 255)",
@@ -18,13 +17,19 @@ export const Color = {
   onSurfaceVariant: "rgb(67, 71, 78)",
   outline: "rgb(116, 119, 127)",
   lightGrey: "rgb(242, 242, 242)",
-  outlineVariant: "rgb(195, 198, 207)",
+  Gray:"rgb(150, 154, 165)",
+  outlineVariant: "rgb(214, 214, 214)",
   shadow: "rgb(0, 0, 0)",
   inverseSurface: "rgb(47, 48, 51)",
   inverseOnSurface: "rgb(241, 240, 244)",
   inversePrimary: "rgb(165, 200, 255)",
   yellow: "rgb(255, 202, 40)",
+<<<<<<< HEAD
   black: "rgb(0,0,0)", 
+=======
+  onError: "rgb(186, 26, 26)",
+  green: "rgb(27, 194, 87)",
+>>>>>>> 70a9ec50a23498d3255af0f69a450b7d5009faca
   elevation: {
     level0: "transparent",
     level1: "rgb(240, 244, 251)",
@@ -55,7 +60,9 @@ export const FontFamily = {
 /* Font Sizes */
 export const FontSize = {
   interBody1SemiBold_size: 16,
+  interBody1Regular_size: 20,
   interHeading4SemiBold_size: 24,
+  interHeading8SemiBold_size: 32, //
 };
 
 /* Style Variables */
@@ -78,4 +85,17 @@ export const Padding = {
   p_base: 16,
   p_5xs: 8,
   p_xs: 12,
+};
+
+/* Fonts */ 
+export const Font = {
+  fontInterBody1SemiBold: {
+    fontFamily: FontFamily.interBody1SemiBold,
+  },
+  fontInterHeading4SemiBold: {
+    fontFamily: FontFamily.interHeading4SemiBold,
+  },
+  fontInterBody1Regular: {
+    fontFamily: FontFamily.interBody1Regular,
+  },
 };

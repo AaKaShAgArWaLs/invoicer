@@ -59,7 +59,7 @@ const ForgetEmptyState = () => {
             <Text style={[styles.label, styles.labelTypo]}>Email</Text>
             <View style={[styles.field, styles.fieldFlexBox]}>
               <TextInput
-                style={styles.inputField}
+                style={[styles.placeholder, styles.labelTypo ,{borderColor: 'transparent'}]}
                 placeholder="Email"
                 placeholderTextColor={styles.placeholder.color}
                 value={email}
