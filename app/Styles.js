@@ -10,7 +10,7 @@ export const Color = {
   onTertiaryContainer: "rgb(0, 29, 50)",
   errorContainer: "rgb(255, 218, 214)",
   onErrorContainer: "rgb(65, 0, 2)",
-  background: "rgb(253, 252, 255)",
+  background: "rgb(245, 245, 245)",
   onBackground: "rgb(26, 28, 30)",
   onSurface: "rgb(26, 28, 30)",
   surfaceVariant: "rgb(224, 226, 236)",
