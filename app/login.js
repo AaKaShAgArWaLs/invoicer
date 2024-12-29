@@ -4,10 +4,9 @@ import { StyleSheet, View, Text, TextInput, Image } from "react-native";
 import { StyleVariable, FontFamily, FontSize, Color, Border } from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { IconButton } from 'react-native-paper';
-<<<<<<< HEAD
+
 import config from './config';
-=======
->>>>>>> 70a9ec50a23498d3255af0f69a450b7d5009faca
+
 
 const LoginEmptyState = () => {
   const navigation = useNavigation();
@@ -57,9 +56,10 @@ const LoginEmptyState = () => {
     setShowPassword(!showPassword);
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
+
 
   // Check if both email and password are filled in
   const isFormValid = email.trim() !== "" && password.trim() !== "";

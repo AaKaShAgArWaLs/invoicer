@@ -69,6 +69,26 @@ def otp_verify():
         return jsonify({"error": "Invalid OTP."}), 400
     else:
         return jsonify({"error": response}), 500  # If an unexpected error occurs
+    
+
+@app.route("/api/newpass", methods=['POST'])
+def password_change():
+    data = request.get_json()
+    password = data.get('password')
+    unique_id = data.get('user_id')
+
+    # Validate input
+    if not password or not unique_id:
+        return jsonify({"message": "Password and unique_id are required"}), 400
+
+    # Call the change_pass function to update the password
+    success = otp.change_pass(unique_id, password)
+
+    if success:
+        return jsonify({"message": "Password updated successfully."}), 200
+    else:
+        return jsonify({"error": "Failed to update password. Unique_ID not found or an error occurred."}), 400
+
 
 
 @app.route('/api/*', methods=['OPTIONS'])

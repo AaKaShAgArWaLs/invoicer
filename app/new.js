@@ -6,26 +6,21 @@ import { StyleVariable, FontSize, Color, Border } from "./Styles";
 import { ScrollView } from "react-native-gesture-handler";
 import { IconButton } from 'react-native-paper';
 import config from './config';
+import { useRoute } from '@react-navigation/native'; 
+
 
 const NewPassword = () => {
   const navigation = useNavigation();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isGSTRegistered, setIsGSTRegistered] = useState(false);
-  const [gstNo, setGstNo] = useState("");
-  const [traderName, setTraderName] = useState("");
-  const [address, setAddress] = useState("");
-  const [pan, setPan] = useState("");
-  const [entityType, setEntityType] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const route = useRoute(); 
+  const { user_id } = route.params;
+
 
   const isFormValid =
-    name.trim() !== "" &&
-    email.trim() !== "" &&
     password.trim() !== "" &&
     password === confirmPassword;
 
@@ -37,18 +32,13 @@ const NewPassword = () => {
 
     try {
       const dataToSubmit = {
-        name,
-        email,
+
         password,
-        gstRegistered: isGSTRegistered,
-        gstNo,
-        traderName,
-        address,
-        pan,
-        entityType,
+        user_id,
+
       };
 
-      const response = await fetch(`${config.ipAddress}/api/signup`, {
+      const response = await fetch(`${config.ipAddress}/api/newpass`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -163,7 +153,7 @@ const NewPassword = () => {
           </View>
           <View style={[styles.wrapper4, styles.wrapperFlexBox]}>
             <Text style={styles.dontHaveAnTypo}>Already have an account?</Text>
-            <TouchableOpacity onPress={handleLogIn} style={styles.button5}>
+            <TouchableOpacity onPress={handleLogIn} style={styles.button5} >
               <Text style={[styles.button1, styles.buttonTypo]}>Log In</Text>
             </TouchableOpacity>
           </View>

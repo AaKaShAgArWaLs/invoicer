@@ -24,12 +24,9 @@ export const Color = {
   inverseOnSurface: "rgb(241, 240, 244)",
   inversePrimary: "rgb(165, 200, 255)",
   yellow: "rgb(255, 202, 40)",
-<<<<<<< HEAD
   black: "rgb(0,0,0)", 
-=======
   onError: "rgb(186, 26, 26)",
   green: "rgb(27, 194, 87)",
->>>>>>> 70a9ec50a23498d3255af0f69a450b7d5009faca
   elevation: {
     level0: "transparent",
     level1: "rgb(240, 244, 251)",
