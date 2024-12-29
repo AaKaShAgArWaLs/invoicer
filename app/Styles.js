@@ -19,7 +19,7 @@ export const Color = {
   lightGrey: "rgb(242, 242, 242)",
   Gray:"rgb(150, 154, 165)",
   outlineVariant: "rgb(214, 214, 214)",
-  shadow: "rgb(0, 0, 0)",
+  black: "rgb(0, 0, 0)",
   inverseSurface: "rgb(47, 48, 51)",
   inverseOnSurface: "rgb(241, 240, 244)",
   inversePrimary: "rgb(165, 200, 255)",

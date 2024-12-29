@@ -258,7 +258,7 @@ const SignUpEmptyState = () => {
 
 const styles = StyleSheet.create({
   input: {
-    color: Color.shadow,
+    color: Color.black,
     flex: 1,
     backgroundColor: Color.lightGrey,
     padding: StyleVariable.scaleAndSpacing12,
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: StyleVariable.scaleAndSpacing24,
     paddingVertical: StyleVariable.scaleAndSpacing8,
     flexDirection: "row",
-    borderBlockColor: Color.shadow,
+    borderBlockColor: Color.black,
     gap: StyleVariable.scaleAndSpacing8,
     alignSelf: "stretch",
     justifyContent: "center",

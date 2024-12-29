@@ -59,7 +59,7 @@ const HomeFilledState = () => {
         setValue={setValue} 
         setItems={setItems}
         style={[styles.dropdown, { 
-          width: 120,
+          width: 150,
           borderWidth: 0,
           backgroundColor: Color.background,
           opacity: 1,
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   card: {
-    backgroundColor: "#ffffff", 
+    backgroundColor: "#ffffff",
     borderRadius: Border.radius,
     padding: 16,
     flex: 1,
@@ -242,43 +242,25 @@ const styles = StyleSheet.create({
     margin: 4,
     display: "flex",
     flexDirection: "column",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
   },
   cardRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
   },
-  cardGreen:{
+  cardGreen: {
     backgroundColor: "rgba(36, 255, 113, 0.1)",
     borderColor: "rgba(36, 255, 113, 0.5)",
-    shadowColor: "rgba(36, 255, 113, 1)",
     borderWidth: 1,
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    boxShadow: "1px 1px 4px rgba(36, 255, 113, 0.2)",
   },
-  cardRed:{
+  cardRed: {
     backgroundColor: "rgba(186, 26, 26, 0.1)",
     borderColor: "rgba(255, 78, 33, 0.4)",
-    shadowColor: "rgba(186, 26, 26, 1)",
-    color:Color.onErrorContainer,
     borderWidth: 1,
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    color: Color.onErrorContainer,
+    boxShadow: "1px 1px 4px rgba(186, 26, 26, 0.2)",
   },
   cardAmount: {
     fontSize: 18,

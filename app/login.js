@@ -129,7 +129,7 @@ const LoginEmptyState = () => {
           <Text
             style={[
               styles.button4,
-              { color: isFormValid ? Color.onPrimary : Color.shadow }
+              { color: isFormValid ? Color.onPrimary : Color.black }
             ]}
             onPress={isFormValid ? handleLogin : null}
           >
