@@ -4,13 +4,14 @@ import { FontFamily, StyleVariable, FontSize, Gap, Color, Border } from "./Style
 import { IconButton, MD2Colors } from "react-native-paper";
 import { Ionicons } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeFilledState = () => {
+  const navigation = useNavigation();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('This month');
   const [items, setItems] = useState([
     { label: 'This month', value: 'This month' },
-    { label: 'Last month', value: 'Last month' },
     { label: 'Last 3 months', value: 'Last 3 months' },
     { label: 'Last year', value: 'Last year' },
   ]);
@@ -30,16 +31,13 @@ const HomeFilledState = () => {
 
   return (
     <View style={styles.homeFilledState}>
-      <View style={[styles.header, { height: 220, width: "100%" }]}>
-        <View
-          style={[
-            styles.wrapper1,
-            { marginLeft: StyleVariable.scaleAndSpacing16 },
-          ]}
-        >
+     <View style={[styles.header, { height: 220, width: "100%" }]}>
+        <View style={[styles.wrapper1,{ marginLeft: StyleVariable.scaleAndSpacing16 },]}>
           <Text style={styles.headerTitle}>Expen</Text>
           <View style={styles.headerIcons}>
-            <IconButton icon="bell" size={24} iconColor="#FFFFFF" />
+            <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+              <Ionicons name="notifications-outline"size={30} color="#ffffff" />
+            </TouchableOpacity>
             <IconButton icon="account-circle" size={40} iconColor="#FFFFFF" />
           </View>
         </View>
@@ -50,27 +48,40 @@ const HomeFilledState = () => {
           </View>
           <Text style={styles.walletAmount}>IDR 0</Text>
         </View>
-      </View>
-      <View style={styles.container}>
+     </View>
+     <View style={[styles.container , { zIndex: 3000 }]}>
       <Text style={styles.label}>Summary</Text>
-
-      <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
+      <DropDownPicker 
+        open={open} 
+        value={value} 
+        items={items} 
+        setOpen={setOpen} 
+        setValue={setValue} 
         setItems={setItems}
-        style={styles.dropdown} // Main dropdown box
-        dropDownContainerStyle={styles.dropdownContainer} // Dropdown list
-        textStyle={styles.textStyle} // Text styling
-        arrowIconStyle={styles.arrowStyle} // Arrow alignment
+        style={[styles.dropdown, { 
+          width: 150,
+          borderWidth: 0,
+          backgroundColor: Color.background,
+          opacity: 1,
+          margin: 0,
+          padding: 0,
+        }]}
+        containerStyle={[styles.dropdownContainer, {
+          width: 150,
+          borderWidth: 0,
+          opacity: 1,
+        }]}
+        textStyle={[styles.textStyle, { color: '#000000' }]}
+        arrowStyle={[styles.arrowStyle, { color: '#000000' }]}
+        dropDownContainerStyle={{
+          borderWidth: 1,
+          borderColor: Color.outlineVariant,
+          borderRadius: 8,
+          opacity: 1,
+        }}
       />
-    </View>
-
-      
-
-      <ScrollView style={styles.cardsContainer}>
+     </View>
+     <ScrollView style={styles.cardsContainer}>
         <View style={styles.cardRow}>
           <TouchableOpacity style={[styles.card, styles.cardGreen]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -138,15 +149,14 @@ const HomeFilledState = () => {
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-      <View style={styles.recentTransactionContainer}>
+     </ScrollView>
+     <View style={styles.recentTransactionContainer}>
         <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
         <Text style={styles.noTransactionText}>
           No recent transaction for now
         </Text>
-      </View>
-
-      <View style={styles.navBar}>
+     </View>
+     <View style={styles.navBar}>
         <View style={styles.navBarButton}>
           <IconButton icon="home" size={24} color="#486cdd" />
           <Text style={styles.navBarLabel}>Home</Text>
@@ -159,10 +169,10 @@ const HomeFilledState = () => {
           <IconButton icon="account" size={24} />
           <Text style={styles.navBarLabel}>Profile</Text>
         </View>
-      </View>
-      <View style={styles.floatingActionButton}>
+     </View>
+     <View style={styles.floatingActionButton}>
         <IconButton icon="plus" iconColor="#ffffff" size={22} />
-      </View>
+     </View>
     </View>
   );
 };
@@ -176,6 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#007AFF",
     padding: 16,
     paddingTop: 0,
+    paddingBottom: 0,
     height: 150,
     justifyContent: "space-between",
     borderBottomWidth: 1,
@@ -217,11 +228,13 @@ const styles = StyleSheet.create({
     fontSize: FontSize.interHeading4SemiBold_size,
   },
   cardsContainer: {
+    width: "100%",
+    height: "100%",
+    padding:0,
     paddingHorizontal: 10,
-    paddingVertical: 16,
   },
   card: {
-    backgroundColor: "#ffffff", 
+    backgroundColor: "#ffffff",
     borderRadius: Border.radius,
     padding: 16,
     flex: 1,
@@ -229,43 +242,25 @@ const styles = StyleSheet.create({
     margin: 4,
     display: "flex",
     flexDirection: "column",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
   },
   cardRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
   },
-  cardGreen:{
+  cardGreen: {
     backgroundColor: "rgba(36, 255, 113, 0.1)",
     borderColor: "rgba(36, 255, 113, 0.5)",
-    shadowColor: "rgba(36, 255, 113, 1)",
     borderWidth: 1,
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    boxShadow: "1px 1px 4px rgba(36, 255, 113, 0.2)",
   },
-  cardRed:{
+  cardRed: {
     backgroundColor: "rgba(186, 26, 26, 0.1)",
     borderColor: "rgba(255, 78, 33, 0.4)",
-    shadowColor: "rgba(186, 26, 26, 1)",
-    color:Color.onErrorContainer,
     borderWidth: 1,
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    color: Color.onErrorContainer,
+    boxShadow: "1px 1px 4px rgba(186, 26, 26, 0.2)",
   },
   cardAmount: {
     fontSize: 18,
@@ -286,14 +281,21 @@ const styles = StyleSheet.create({
   },
   recentTransactionContainer: {
     width: "100%",
-    alignItems: "center",
-    marginBottom: 18,
+    padding: 16,
+    paddingTop: 10,
+    paddingBottom: 0,
+    height: 150,
+    backgroundColor: "#F5F5F5",
+    bottom: 50,
   },
   recentTransactionTitle: {
     fontWeight: "bold",
     marginBottom: 18,
   },
   noTransactionText: {
+    color: "#888",
+    marginBottom: 16,
+    textAlign: 'center',
     color: "#888",
   },
   navBar: {
@@ -324,34 +326,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Align items horizontally
     alignItems: 'center', // Vertically align items
     justifyContent: 'space-between', // Ensure proper spacing
-    padding: 16,
+    padding: 10,
+    paddingTop:0,
   },
   label: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginRight: 16, // Space between label and dropdown
+    marginRight: 16,
   },
   dropdown: {
-    flex: 1, // Take up remaining space
+    flex: 1,
     height: 40,
-    width: 50,
-    backgroundColor: '#f5f5f5',
-    borderColor: '#ddd',
-    borderRadius: 8, // Rounded corners
+    width: 150,
     paddingHorizontal: 10,
   },
   dropdownContainer: {
-    width: 50, // Full width of parent container
-    backgroundColor: '#fff',
-    borderColor: '#ddd',
-    borderRadius: 8, // Match dropdown box
+    width: 150,
+    borderRadius: 8,
   },
   textStyle: {
     fontSize: 16,
     color: '#333',
   },
   arrowStyle: {
-    marginRight: 10, // Space between text and arrow
+    marginRight: 10,
   },
 });
 export default HomeFilledState;
