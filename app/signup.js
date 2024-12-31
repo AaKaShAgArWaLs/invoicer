@@ -1,11 +1,17 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, CheckBox, Alert, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { StyleVariable, FontSize, Color, Border } from "./Styles";
 import { ScrollView } from "react-native-gesture-handler";
 import { IconButton } from 'react-native-paper';
 import config from './config';
+import auth from '@react-native-firebase/auth';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { useAuthRequest } from 'expo-auth-session';
+
+WebBrowser.maybeCompleteAuthSession();
 
 const SignUpEmptyState = () => {
   const navigation = useNavigation();
@@ -22,6 +28,26 @@ const SignUpEmptyState = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    clientId: 'YOUR_WEB_CLIENT_ID', // Replace with your actual web client ID from Firebase
+  });
+
+  React.useEffect(() => {
+    if (response?.type === 'success') {
+      const { id_token } = response.params;
+
+      // Use the id_token to authenticate with Firebase
+      const credential = auth.GoogleAuthProvider.credential(id_token);
+      auth().signInWithCredential(credential)
+        .then(() => {
+          console.log('User signed in with Google!');
+          // Navigate to the next screen or perform any other action
+        })
+        .catch((error) => {
+          console.error('Firebase authentication error:', error);
+        });
+    }
+  }, [response]);
 
   const isFormValid =
     name.trim() !== "" &&
@@ -178,9 +204,16 @@ const SignUpEmptyState = () => {
             or Sign up with
           </Text>
 
-          <View style={[styles.GoogleBut, styles.buttonFlexBox]}>
+          <TouchableOpacity
+            disabled={!request}
+            onPress={() => {
+              promptAsync();
+            }}
+            style={[styles.GoogleBut, styles.buttonFlexBox]}
+          >
             <Image source={require('../assets/images/google.svg')} style={{ width: 25, height: 25 }} />
-          </View>
+            <Text style={styles.googleButtonText}>Sign in with Google</Text>
+          </TouchableOpacity>
           <View style={[styles.frameChild, styles.fieldFlexBox]} />
         </View>
         <View style={[styles.button2, styles.button2SpaceBlock]}>
@@ -438,6 +471,11 @@ const styles = StyleSheet.create({
   errorText: {
     color: Color.onError,
     marginTop: 5,
+  },
+  googleButtonText: {
+    color: '#FFFFFF',
+    marginLeft: 10,
+    fontSize: 16,
   },
 });
 

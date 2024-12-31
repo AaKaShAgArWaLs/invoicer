@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import SignUpEmptyState from './app/signup'; // Import your signup screen
 import LoginEmptyState from './app/login'; // Import your login screen
 import ForgetEmptyState from './app/forgot.js'

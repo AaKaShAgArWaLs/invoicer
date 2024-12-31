@@ -6,7 +6,7 @@
     "entryPoint": "./App.js",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "newArchEnabled" : true,
+    "newArchEnabled": true,
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -15,13 +15,16 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.invoicer1"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.invoicer1"
     },
     "web": {
       "bundler": "metro",
@@ -29,10 +32,19 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "@react-native-google-signin/google-signin"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "698d40e4-af9f-4204-b314-6a45b7d0cc8f"
+      }
     }
   }
 }
