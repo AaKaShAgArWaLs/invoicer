@@ -150,15 +150,10 @@ const HomeFilledState = () => {
           </TouchableOpacity>
         </View>
      </ScrollView>
-     <View style={styles.recentTransactionContainer}>
-        <Text style={styles.recentTransactionTitle}>Recent Transaction</Text>
-        <Text style={styles.noTransactionText}>
-          No recent transaction for now
-        </Text>
-     </View>
+     
      <View style={styles.navBar}>
         <View style={styles.navBarButton}>
-          <IconButton icon="home" size={24} color="#486cdd" />
+          <IconButton style={{ pointerEvents: 'none' }} icon="home" size={24} color="#486cdd" />
           <Text style={styles.navBarLabel}>Home</Text>
         </View>
         <View style={styles.navBarButton}>
@@ -279,25 +274,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#757575',
   },
-  recentTransactionContainer: {
-    width: "100%",
-    padding: 16,
-    paddingTop: 10,
-    paddingBottom: 0,
-    height: 150,
-    backgroundColor: "#F5F5F5",
-    bottom: 50,
-  },
-  recentTransactionTitle: {
-    fontWeight: "bold",
-    marginBottom: 18,
-  },
-  noTransactionText: {
-    color: "#888",
-    marginBottom: 16,
-    textAlign: 'center',
-    color: "#888",
-  },
+  // recentTransactionContainer: {
+  //   width: "100%",
+  //   padding: 16,
+  //   paddingTop: 10,
+  //   paddingBottom: 0,
+  //   height: 20,
+  //   backgroundColor: "#F5F5F5",
+  //   bottom: 50,
+  // },
+  // recentTransactionTitle: {
+  //   fontWeight: "bold",
+  //   marginBottom: 18,
+  // },
+  // noTransactionText: {
+  //   color: "#888",
+  //   marginBottom: 16,
+  //   textAlign: 'center',
+  //   color: "#888",
+  // },
   navBar: {
     flexDirection: "row",
     justifyContent: "space-around",

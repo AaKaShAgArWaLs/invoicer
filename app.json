@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "invoicer-1",
-    "slug": "invoicer-1",
+    "slug": "ca-app",
     "version": "1.0.0",
     "entryPoint": "./App.js",
     "orientation": "portrait",
@@ -33,6 +33,7 @@
     },
     "plugins": [
       "expo-router",
+      "@react-native-firebase/app",
       "@react-native-google-signin/google-signin"
     ],
     "experiments": {
@@ -43,8 +44,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "698d40e4-af9f-4204-b314-6a45b7d0cc8f"
+        "projectId": "220ddd51-08e8-4d75-99e8-c46be4b5c7de"
       }
-    }
+    },
+    "owner": "hkbuild"
   }
 }

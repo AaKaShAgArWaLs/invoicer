@@ -29,19 +29,18 @@ const SignUpEmptyState = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: 'YOUR_WEB_CLIENT_ID', // Replace with your actual web client ID from Firebase
+    clientId: '239943405988-19g30oqltj3esk0vpeq2kar8o13omfll.apps.googleusercontent.com',
+    redirectUri: 'https://auth.expo.io/@hkbuild/ca-app',
   });
 
   React.useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
 
-      // Use the id_token to authenticate with Firebase
       const credential = auth.GoogleAuthProvider.credential(id_token);
       auth().signInWithCredential(credential)
         .then(() => {
           console.log('User signed in with Google!');
-          // Navigate to the next screen or perform any other action
         })
         .catch((error) => {
           console.error('Firebase authentication error:', error);

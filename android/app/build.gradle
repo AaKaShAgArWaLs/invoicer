@@ -176,4 +176,5 @@ dependencies {
     }
 }
 
+// Apply the Google services plugin at the end
 apply plugin: 'com.google.gms.google-services'

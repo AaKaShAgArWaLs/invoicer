@@ -1,0 +1,47 @@
+{
+    "project_info": {
+      "project_number": "239943405988",
+      "project_id": "ca-app-67864",
+      "storage_bucket": "ca-app-67864.firebasestorage.app"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:239943405988:android:a13333b915f7380dda7131",
+          "android_client_info": {
+            "package_name": "com.anonymous.invoicer1"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "239943405988-jhpnhlmoeglds36cfjhan1oaa443v4lb.apps.googleusercontent.com",
+            "client_type": 1,
+            "android_info": {
+              "package_name": "com.anonymous.invoicer1",
+              "certificate_hash": "05d94897debce83b0eaf1edc1738d925e75cf127"
+            }
+          },
+          {
+            "client_id": "239943405988-19g30oqltj3esk0vpeq2kar8o13omfll.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyBszQjGgage223gO_44iG6kLsD26I_t4D0"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "239943405988-19g30oqltj3esk0vpeq2kar8o13omfll.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
